@@ -24,7 +24,7 @@ const gqlString = graphqlify('query', getUserQuery)
 
 console.log(gqlString)
 // =>
-//   query getUser {
+//   query getUser(id: 1) {
 //     user {
 //       id
 //       name

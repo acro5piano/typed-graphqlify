@@ -80,7 +80,7 @@ const gqlString = graphqlify('query', getUserQuery)
 console.log(gqlString)
 // =>
 //   query getUser {
-//     user {
+//     user(id: 1) {
 //       id
 //       name
 //       bankAccount {
