@@ -13,7 +13,7 @@ yarn add typed-graphqlify
 First, define GraphQL-like JS Object:
 
 ```typescript
-const getUser = {
+const getUserQuery = {
   getUser: {
     user: {
       __params: { id: 1 },
@@ -33,7 +33,7 @@ Note that we use our `types` helper to define types in the result.
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-const gqlString = graphqlify('query', getUser)
+const gqlString = graphqlify('query', getUserQuery)
 
 console.log(gqlString)
 // =>
