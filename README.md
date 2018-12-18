@@ -121,4 +121,7 @@ const result: typeof getUser = executeGraphql(graphqlify('query', getUser))
 
 # Thanks
 
-Inspired by https://github.com/kadirahq/graphqlify
+Inspired by
+
+- https://github.com/kadirahq/graphqlify
+- https://raw.githubusercontent.com/19majkel94/type-graphql
