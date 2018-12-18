@@ -13,7 +13,8 @@
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
     "dist": "npm-run-all clean build",
-    "test": "jest --maxWorkers=4"
+    "test": "jest --maxWorkers=4",
+    "prepublish": "npm run build"
   },
   "dependencies": {},
   "devDependencies": {
