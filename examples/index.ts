@@ -1,7 +1,9 @@
-import { graphqlify, types } from 'typed-graphqlify'
+// import { graphqlify, types } from '../dist/index'
+// import { graphqlify, types } from 'typed-graphqlify'
+import { graphqlify, types } from './node_modules/typed-graphqlify/dist'
 
 async function executeGraphql(gqlString: string): Promise<any> {
-  console.log(gqlString)
+  return 0
 }
 
 const getUserQuery = {

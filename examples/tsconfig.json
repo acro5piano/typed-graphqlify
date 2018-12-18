@@ -2,14 +2,13 @@
   "compilerOptions": {
     /* Basic Options */
     "target": "es5",
-    "module": "ES2015",
+    "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
     "removeComments": true,
     "noLib": false,
     "skipLibCheck": true,
-    "jsx": "react",
-    "types": ["node", "webpack-env", "jest"],
+    "types": ["node"],
     "lib": ["dom", "es2015", "es2016", "es2017", "esnext.asynciterable"],
     "keyofStringsOnly": true,
 
