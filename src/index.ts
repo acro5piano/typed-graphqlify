@@ -8,7 +8,7 @@ const filterParams = (k: string) => k !== '__params'
 
 type QueryType = 'query' | 'mutation'
 
-export const typedGraphQL = (type: QueryType, obj: any) => {
+export const graphqlify = (type: QueryType, obj: any) => {
   const operationName = Object.keys(obj).filter(filterParams)[0]
   const query = obj[operationName]
   const operationParams = getParams(query.__params)

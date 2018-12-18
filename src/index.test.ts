@@ -1,7 +1,7 @@
-import { typedGraphQL, types } from './'
+import { graphqlify, types } from './'
 import { gql } from './test-utils'
 
-describe('typedGraphQL', () => {
+describe('graphqlify', () => {
   it('render GraphQL', () => {
     const queryObject = {
       getUser: {
@@ -16,7 +16,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -40,7 +40,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -65,7 +65,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -93,7 +93,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -120,7 +120,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -148,7 +148,7 @@ describe('typedGraphQL', () => {
         },
       },
     }
-    const actual = typedGraphQL('query', queryObject)
+    const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser($id: Number) {
