@@ -76,7 +76,7 @@ const result: typeof getUser = executeGraphql(graphqlify('query', getUser))
 
 # TODO
 
-- [ ] Publish to NPM
+- [x] Publish to NPM
 - [ ] Enum support
 - [ ] Variable Input support
 
