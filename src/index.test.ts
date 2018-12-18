@@ -1,4 +1,4 @@
-import { typedGraphQL, types } from './version2'
+import { typedGraphQL, types } from './'
 import { gql } from './test-utils'
 
 describe('typedGraphQL', () => {
