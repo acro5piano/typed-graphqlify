@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2'
 
 export default {
-  input: './index.ts',
+  input: './src/index.ts',
   plugins: [
     typescript({
       tslib: require('tslib'),
@@ -12,7 +12,7 @@ export default {
   output: {
     file: 'dist/index.js',
     format: 'cjs',
-    name: 'infra-frontend-core',
+    name: 'typed-graphqlify',
     sourcemap: true,
   },
 }
