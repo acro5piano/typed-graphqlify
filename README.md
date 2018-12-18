@@ -13,6 +13,8 @@ yarn add typed-graphqlify
 First, define GraphQL-like JS Object:
 
 ```typescript
+import { graphqlify, types } from 'typed-graphqlify'
+
 const getUserQuery = {
   getUser: {
     user: {
