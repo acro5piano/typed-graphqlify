@@ -1,5 +1,5 @@
 {
-  "name": "js-to-graphql",
+  "name": "typed-graphqlify",
   "version": "0.0.1",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
   "repository": "git@github.com:acro5piano/typed-graphqlify",
