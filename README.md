@@ -72,7 +72,7 @@ const result: typeof getUser = executeGraphql(graphqlify('query', getUser))
 // }
 ```
 
-![image](https://github.com/acro5piano/typed-graphqlify/blob/master/screenshot.png)
+![image](https://github.com/acro5piano/typed-graphqlify/blob/master/screenshot.jpg)
 
 # TODO
 
