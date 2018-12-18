@@ -1,0 +1,31 @@
+{
+  "name": "js-to-graphql",
+  "version": "0.0.1",
+  "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
+  "main": "dist/index.js",
+  "jsnext:main": "dist/index.js",
+  "module": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rm -rf dist/*",
+    "dist": "npm run clean && npm run build && git add . && git commit -m 'build'; git push origin master",
+    "test": "jest --maxWorkers=4"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.10",
+    "@types/react": "^16.7.9",
+    "@types/react-dom": "^16.0.11",
+    "@types/webpack-env": "^1.13.6",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.2",
+    "rollup": "^0.67.3",
+    "rollup-plugin-typescript2": "^0.18.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.2.1"
+  }
+}

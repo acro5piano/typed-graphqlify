@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    /* Basic Options */
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "noLib": false,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "types": ["node", "webpack-env", "jest"],
+    "lib": ["dom", "es2015", "es2016", "es2017", "esnext.asynciterable"],
+    "keyofStringsOnly": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    // "alwaysStrict": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Experimental Options */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    /* Module Resolution Options */
+    "baseUrl": "./",
+    "outDir": "dist",
+    "paths": {
+      "app/*": ["./src/*"]
+    }
+  }
+}
