@@ -28,7 +28,6 @@ console.log(gqlString)
 //     user {
 //       id
 //       name
-//       isActive
 //       bankAccount {
 //         id
 //         name
