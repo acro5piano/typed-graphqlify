@@ -10,27 +10,10 @@ yarn add typed-graphqlify
 
 # Example
 
-**GraphQL**
+First, define GraphQL-like JS Object:
 
-```graphql
-query getUser {
-  user(id: 1) {
-    id
-    name
-    bankAccount {
-      id
-      branch
-    }
-  }
-}
-```
-
-**TypeScript**
-
-```ts
-import { graphqlify, types } from 'typed-graphqlify'
-
-graphqlify('query', {
+```typescript
+const getUser = {
   getUser: {
     user: {
       __params: { id: 1 },
@@ -42,8 +25,52 @@ graphqlify('query', {
       },
     },
   },
-})
+}
 ```
+
+Note that we use our `types` helper to define types in the result.
+
+Then, convert the JS Object to GraphQL (string) with `graphqlify`:
+
+```typescript
+const gqlString = graphqlify('query', getUser)
+
+console.log(gqlString)
+// =>
+//   query getUser {
+//     user {
+//       id
+//       name
+//       isActive
+//       bankAccount {
+//         id
+//         name
+//       }
+//     }
+//   }
+```
+
+Finally, execute the GraphQL:
+
+```typescript
+// We would like to type this!
+const result: typeof getUser = executeGraphql(graphqlify('query', getUser))
+
+// As we cast `result` to `typeof getUser`,
+// Now, `result` type looks like this:
+// interface result {
+//   user: {
+//     id: number
+//     name: string
+//     bankAccount: {
+//       id: number
+//       branch: string
+//     }
+//   }
+// }
+```
+
+![image](https://github.com/acro5piano/typed-graphqlify/blob/master/screenshot.png)
 
 # TODO
 
