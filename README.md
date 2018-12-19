@@ -293,4 +293,4 @@ graphqlify('query', {
 Inspired by
 
 - https://github.com/kadirahq/graphqlify
-- https://raw.githubusercontent.com/19majkel94/type-graphql
+- https://github.com/19majkel94/type-graphql
