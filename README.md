@@ -24,7 +24,7 @@ interface GetUserQueryData {
     name: string
     bankAccount: {
       id: number
-      branch: string
+      branch?: string
     }
   }
 }
@@ -66,7 +66,7 @@ const getUserQuery = {
       name: types.string,
       bankAccount: {
         id: types.number,
-        branch: types.string,
+        branch: types.optional.string,
       },
     },
   },
@@ -110,7 +110,7 @@ const result: typeof getUser = await executeGraphql(gqlString)
 //     name: string
 //     bankAccount: {
 //       id: number
-//       branch: string
+//       branch?: string
 //     }
 //   }
 // }
