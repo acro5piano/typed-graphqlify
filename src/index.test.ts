@@ -1,4 +1,4 @@
-import { graphqlify, types } from './index'
+import { graphqlify, types, optional } from './index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -177,6 +177,25 @@ describe('graphqlify', () => {
     expect(actual).toEqual(gql`
       mutation updateUser($name: String!) {
         user(name: $name) {
+          id
+        }
+      }
+    `)
+  })
+
+  it('render optional field', () => {
+    const queryObject = {
+      getUser: {
+        user: optional({
+          id: types.optional.number,
+        }),
+      },
+    }
+    const actual = graphqlify('query', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
           id
         }
       }

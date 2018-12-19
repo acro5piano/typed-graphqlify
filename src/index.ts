@@ -1,7 +1,12 @@
+export function optional<T>(obj: T): T | undefined {
+  return obj
+}
+
 export class types {
   static number: number = 0
   static string: string = ''
   static boolean: boolean = false
+  static optional: Partial<typeof types> = types
 }
 
 const filterParams = (k: string) => k !== '__params'

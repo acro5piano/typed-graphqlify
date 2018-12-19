@@ -123,9 +123,45 @@ const result: typeof getUser = await executeGraphql(gqlString)
 - Nested Query
 - Input variable
 - Query and Mutation
+- Optional
+
+# Documentation
+
+## Basic Types
+
+```typescript
+import { types } from 'typed-graphqlify'
+```
+
+currently `types` has these three types:
+
+- `types.number`
+- `types.string`
+- `types.boolean`
+
+## Optional
+
+Add `optional` to define optional field:
+
+```typescript
+import { types, optional } from 'typed-graphqlify'
+
+const query = {
+  getUser: {
+    user: {
+      id: types.number
+      name: types.optional.string // <-- user.name is `string | undefined`
+      bankAccount: optional({     // <-- user.bankAccount is `{ id: number } | undefined`
+        id: types.number
+      })
+    }
+  }
+}
+```
 
 # TODO
 
+- [ ] Optional support
 - [ ] Enum support
 
 # Thanks
