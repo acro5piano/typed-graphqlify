@@ -2,6 +2,11 @@
   "name": "typed-graphqlify",
   "version": "0.0.1",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
+  "keywords": [
+      "graphql",
+      "typescript",
+      "utility"
+  ],
   "repository": "git@github.com:acro5piano/typed-graphqlify",
   "author": "gosho-kazuya <ketsume0211@gmail.com>",
   "license": "MIT",
