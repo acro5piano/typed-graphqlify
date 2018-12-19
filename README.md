@@ -247,6 +247,8 @@ graphqlify('query', {
 })
 ```
 
+See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
+
 # Documentation
 
 ## Basic Types
@@ -268,11 +270,11 @@ Add `optional` to define optional field:
 ```typescript
 import { types, optional } from 'typed-graphqlify'
 
-const query = {
+graphqlify('query', {
   getUser: {
     user: {
-      id: types.number
-      name: types.optional.string // <-- user.name is `string | undefined`
+      id: types.number,
+      name: types.optional.string, // <-- user.name is `string | undefined`
       bankAccount: optional({     // <-- user.bankAccount is `{ id: number } | undefined`
         id: types.number,
       }),
