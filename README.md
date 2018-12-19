@@ -97,8 +97,10 @@ console.log(gqlString)
 Finally, execute the GraphQL:
 
 ```typescript
+import { executeGraphql } from 'some-graphql-request-library'
+
 // We would like to type this!
-const result: typeof getUser = executeGraphql(graphqlify('query', getUser))
+const result: typeof getUser = await executeGraphql(gqlString)
 
 // As we cast `result` to `typeof getUser`,
 // Now, `result` type looks like this:
