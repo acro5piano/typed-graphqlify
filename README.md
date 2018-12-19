@@ -162,7 +162,7 @@ mutation updateUser($input: UserInput!) {
 
 ```typescript
 graphqlify('mutation', {
-  __params: { input: 'UserInput!' },
+  __params: { $input: 'UserInput!' },
   updateUser: {
     __params: { input: '$input' },
     id: types.number,
