@@ -121,9 +121,9 @@ const result: typeof getUser = await executeGraphql(gqlString)
 # Features
 
 - Nested Query
-- Input variable
+- Input variables, parameters
 - Query and Mutation
-- Optional
+- Optional types
 
 # Documentation
 
@@ -161,7 +161,7 @@ const query = {
 
 # TODO
 
-- [ ] Optional support
+- [x] Optional support
 - [ ] Enum support
 
 # Thanks
