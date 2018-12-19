@@ -1,4 +1,4 @@
-import { graphqlify, types } from './'
+import { graphqlify, types } from './index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -156,6 +156,27 @@ describe('graphqlify', () => {
           id
         }
         bankAccount(id: 2) {
+          id
+        }
+      }
+    `)
+  })
+
+  it('render mutation', () => {
+    const queryObject = {
+      updateUser: {
+        __params: { $name: 'String!' },
+        user: {
+          __params: { name: '$name' },
+          id: types.number,
+        },
+      },
+    }
+    const actual = graphqlify('mutation', queryObject)
+
+    expect(actual).toEqual(gql`
+      mutation updateUser($name: String!) {
+        user(name: $name) {
           id
         }
       }
