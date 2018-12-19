@@ -164,7 +164,7 @@ mutation updateUser($input: UserInput!) {
 graphqlify('mutation', {
   __params: { input: 'UserInput!' },
   updateUser: {
-    __params: { input: '$user' },
+    __params: { input: '$input' },
     id: types.number,
     name: types.string,
   },
