@@ -166,7 +166,7 @@ describe('graphqlify', () => {
     const queryObject = {
       updateUser: {
         __params: { $name: 'String!' },
-        user: {
+        updateUser: {
           __params: { name: '$name' },
           id: types.number,
         },
@@ -176,7 +176,7 @@ describe('graphqlify', () => {
 
     expect(actual).toEqual(gql`
       mutation updateUser($name: String!) {
-        user(name: $name) {
+        updateUser(name: $name) {
           id
         }
       }

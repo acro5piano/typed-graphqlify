@@ -51,7 +51,7 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 
 **typed-graphqlify** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class. Additional features including graphql-tag, or Fragment can be implemented by other tools like Apollo.
 
-# Example
+# How to use
 
 First, define GraphQL-like JS Object:
 
@@ -125,6 +125,128 @@ const result: typeof getUser = await executeGraphql(gqlString)
 - Query and Mutation
 - Optional types
 
+# Exapmles
+
+Basic Query
+
+```graphql
+query getUser {
+  user {
+    id
+    name
+  }
+}
+```
+
+```typescript
+graphqlify('query', {
+  getUser: {
+    user: {
+      id: types.number,
+      name: types.string,
+    },
+  },
+})
+```
+
+Basic Mutation
+
+```graphql
+mutation updateUser($input: UserInput!) {
+  updateUser(input: $input) {
+    id
+    name
+  }
+}
+```
+
+```typescript
+graphqlify('mutation', {
+  __params: { input: 'UserInput!' },
+  updateUser: {
+    __params: { input: '$user' },
+    id: types.number,
+    name: types.string,
+  },
+})
+```
+
+Nested Query
+
+```graphql
+query getUser {
+  user {
+    id
+    name
+    parent {
+      id
+      name
+      grandParent {
+        id
+        name
+        children {
+          id
+          name
+        }
+      }
+    }
+  }
+}
+```
+
+```typescript
+graphqlify('query', {
+  getUser: {
+    user: {
+      id: types.number,
+      name: types.string,
+      parent: {
+        id: types.number,
+        name: types.string,
+        grandParent: {
+          id: types.number,
+          name: types.string,
+          children: {
+            id: types.number,
+            name: types.string,
+          },
+        },
+      },
+    },
+  },
+})
+```
+
+Multiple Queries
+
+```graphql
+query getFatherAndMother {
+  father {
+    id
+    name
+  }
+  mother {
+    id
+    name
+  }
+}
+```
+
+```typescript
+graphqlify('query', {
+  getFatherAndMother: {
+    father: {
+      id: types.number,
+      name: types.string,
+    },
+    mother: {
+      id: types.number,
+      name: types.number,
+    },
+  },
+})
+```
+
 # Documentation
 
 ## Basic Types
@@ -152,10 +274,10 @@ const query = {
       id: types.number
       name: types.optional.string // <-- user.name is `string | undefined`
       bankAccount: optional({     // <-- user.bankAccount is `{ id: number } | undefined`
-        id: types.number
-      })
-    }
-  }
+        id: types.number,
+      }),
+    },
+  },
 }
 ```
 
