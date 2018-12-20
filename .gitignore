@@ -59,5 +59,7 @@ typings/
 
 # next.js build output
 .next
+
+# Project specific
 .rpt2_cache
 dist
