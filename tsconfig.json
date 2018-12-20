@@ -33,6 +33,7 @@
     "emitDecoratorMetadata": true,
 
     /* Module Resolution Options */
+    "esModuleInterop": true,
     "baseUrl": "./",
     "outDir": "dist",
     "paths": {
