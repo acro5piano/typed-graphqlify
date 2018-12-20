@@ -1,0 +1,13 @@
+src
+examples
+coverage
+docs
+tsconfig.json
+CONTRIBUTING.md
+ISSUE_TEMPLATE.md
+PULL_REQUEST_TEMPLATE.md
+tslint.json
+.circle
+.gitignore
+.vscode
+.publishrc
