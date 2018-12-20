@@ -201,4 +201,25 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render array field', () => {
+    const queryObject = {
+      getUsers: {
+        users: [
+          {
+            id: types.number,
+          },
+        ],
+      },
+    }
+    const actual = graphqlify('query', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUsers {
+        users {
+          id
+        }
+      }
+    `)
+  })
 })

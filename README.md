@@ -121,13 +121,14 @@ const result: typeof getUser = await executeGraphql(gqlString)
 # Features
 
 - Nested Query
+- Array Query
 - Input variables, parameters
 - Query and Mutation
 - Optional types
 
 # Exapmles
 
-Basic Query
+## Basic Query
 
 ```graphql
 query getUser {
@@ -149,7 +150,9 @@ graphqlify('query', {
 })
 ```
 
-Basic Mutation
+## Basic Mutation
+
+Change the first argument of `graphqlify` to `mutation`.
 
 ```graphql
 mutation updateUser($input: UserInput!) {
@@ -171,7 +174,9 @@ graphqlify('mutation', {
 })
 ```
 
-Nested Query
+## Nested Query
+
+Write nested object just like GraphQL.
 
 ```graphql
 query getUser {
@@ -217,7 +222,35 @@ graphqlify('query', {
 })
 ```
 
-Multiple Queries
+## Array Field
+
+Just add array to your query.
+
+```graphql
+query getUsers {
+  users {
+    id
+    name
+  }
+}
+```
+
+```typescript
+graphqlify('query', {
+  getUsers: {
+    users: [
+      {
+        id: types.number,
+        name: types.string,
+      },
+    ],
+  },
+})
+```
+
+## Multiple Queries
+
+Add other queries at the same level of the other query.
 
 ```graphql
 query getFatherAndMother {
