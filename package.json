@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
   "keywords": [
       "graphql",

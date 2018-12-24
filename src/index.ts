@@ -1,5 +1,5 @@
-export type GraphQLData<T extends {}, K extends keyof T> = {
-  value: T[K]
+export type GraphQLData<T extends {}> = {
+  value: T[keyof T]
 }['value']
 
 export function optional<T>(obj: T): T | undefined {
