@@ -15,7 +15,7 @@ yarn add typed-graphqlify
 
 # Motivation
 
-We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. But developing a GraphQL API in TypeScript is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
+We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. But developing a GraphQL Client in TypeScript is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
 
 When we use GraphQL library such as Apollo, We have to define query and its interface like this:
 
