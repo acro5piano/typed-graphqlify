@@ -32,7 +32,6 @@ export const graphqlify = (type: QueryType, obj: any) => {
 
 // TODO: Tail Call Recursion
 const joinFieldRecursively = (fieldOrObject: any): string => {
-  console.log(fieldOrObject)
   const joinedFields = Object.keys(fieldOrObject)
     .filter(filterParams)
     .map(key => {
