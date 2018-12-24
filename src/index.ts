@@ -53,7 +53,6 @@ const joinFieldRecursively = (fieldOrObject: any): string => {
     .filter(filterParams)
     .map(key => {
       if (Array.isArray(fieldOrObject)) {
-        console.log(fieldOrObject[0])
         return `${joinFieldRecursively(fieldOrObject[0])}`
       }
       if (typeof fieldOrObject[key] === 'object') {
