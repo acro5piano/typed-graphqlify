@@ -11,3 +11,7 @@ tslint.json
 .gitignore
 .vscode
 .publishrc
+.rpt2_cache
+
+prettier.config.js
+screenshot.jpg
