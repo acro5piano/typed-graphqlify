@@ -128,7 +128,7 @@ const result: GraphQLData<typeof getUser> = await executeGraphql(gqlString)
 - Query and Mutation
 - Optional types
 
-# Exapmles
+# Examples
 
 ## Basic Query
 
@@ -228,7 +228,7 @@ graphqlify('query', {
 
 ## Array Field
 
-Just add array to your query.
+Just add array to your query. This does not change the result of compile, but TypeScript can aware the field is array.
 
 ```graphql
 query getUsers {
@@ -254,7 +254,7 @@ graphqlify('query', {
 
 ## Optional Field
 
-Add `optional` to define optional field:
+Add `types.optional` or `optional` helper method to define optional field.
 
 ```typescript
 import { types, optional } from 'typed-graphqlify'
@@ -274,7 +274,7 @@ graphqlify('query', {
 
 ## Constant field
 
-Add other queries at the same level of the other query.
+Use `types.constant` method to define constant field.
 
 ```graphql
 query getUser {
