@@ -10,6 +10,12 @@ Build Typed GraphQL Query in TypeScript. Better TypeScript + GraphQL experience.
 # Install
 
 ```
+npm install --save typed-graphqlify
+```
+
+Or if you use Yarn:
+
+```
 yarn add typed-graphqlify
 ```
 
