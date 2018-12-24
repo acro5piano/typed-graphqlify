@@ -97,6 +97,7 @@ console.log(gqlString)
 Finally, execute the GraphQL:
 
 ```typescript
+// GraphQLData is a type helper which returns one level down
 import { GraphQLData } from 'typed-graphqlify'
 import { executeGraphql } from 'some-graphql-request-library'
 
@@ -136,6 +137,7 @@ query getUser {
   user {
     id
     name
+    isActive
   }
 }
 ```
@@ -146,6 +148,7 @@ graphqlify('query', {
     user: {
       id: types.number,
       name: types.string,
+      isActive: types.boolean,
     },
   },
 })
@@ -249,6 +252,52 @@ graphqlify('query', {
 })
 ```
 
+## Optional Field
+
+Add `optional` to define optional field:
+
+```typescript
+import { types, optional } from 'typed-graphqlify'
+
+graphqlify('query', {
+  getUser: {
+    user: {
+      id: types.number,
+      name: types.optional.string, // <-- user.name is `string | undefined`
+      bankAccount: optional({      // <-- user.bankAccount is `{ id: number } | undefined`
+        id: types.number,
+      }),
+    },
+  },
+}
+```
+
+## Constant field
+
+Add other queries at the same level of the other query.
+
+```graphql
+query getUser {
+  user {
+    id
+    name
+    __typename # <-- Always `User`
+  }
+}
+```
+
+```typescript
+graphqlify('query', {
+  getUser: {
+    user: {
+      id: types.number,
+      name: types.string,
+      __typename: types.constant('User'),
+    },
+  },
+})
+```
+
 ## Multiple Queries
 
 Add other queries at the same level of the other query.
@@ -282,40 +331,6 @@ graphqlify('query', {
 ```
 
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
-
-# Documentation
-
-## Basic Types
-
-```typescript
-import { types } from 'typed-graphqlify'
-```
-
-currently `types` has these three types:
-
-- `types.number`
-- `types.string`
-- `types.boolean`
-
-## Optional
-
-Add `optional` to define optional field:
-
-```typescript
-import { types, optional } from 'typed-graphqlify'
-
-graphqlify('query', {
-  getUser: {
-    user: {
-      id: types.number,
-      name: types.optional.string, // <-- user.name is `string | undefined`
-      bankAccount: optional({     // <-- user.bankAccount is `{ id: number } | undefined`
-        id: types.number,
-      }),
-    },
-  },
-}
-```
 
 # TODO
 

@@ -6,11 +6,16 @@ export function optional<T>(obj: T): T | undefined {
   return obj
 }
 
+function constant<T extends string>(c: T): T {
+  return c
+}
+
 export class types {
   static number: number = 0
   static string: string = ''
   static boolean: boolean = false
   static optional: Partial<typeof types> = types
+  static constant = constant
 }
 
 const filterParams = (k: string) => k !== '__params'

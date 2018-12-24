@@ -1,4 +1,5 @@
 import { graphqlify, types, optional } from './index'
+// import { GraphQLData } from './index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -220,6 +221,35 @@ describe('graphqlify', () => {
       query getUsers {
         users {
           id
+        }
+      }
+    `)
+  })
+
+  it('render __typename itself', () => {
+    const queryObject = {
+      getUsers: {
+        users: {
+          id: types.number,
+          __typename: types.constant('User'),
+        },
+      },
+    }
+    const actual = graphqlify('query', queryObject)
+
+    // just type check
+    // const a: GraphQLData<typeof queryObject> = {
+    //   users: {
+    //     id: 1,
+    //     __typename: 'User',
+    //   },
+    // }
+
+    expect(actual).toEqual(gql`
+      query getUsers {
+        users {
+          id
+          __typename
         }
       }
     `)
