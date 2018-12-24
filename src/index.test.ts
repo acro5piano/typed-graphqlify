@@ -254,4 +254,27 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render parameters when array', () => {
+    const queryObject = {
+      getUsers: {
+        __params: { $status: 'String!' },
+        users: [
+          {
+            __params: { status: '$status' },
+            id: types.number,
+          },
+        ],
+      },
+    }
+    const actual = graphqlify('query', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUsers($status: String!) {
+        users(status: $status) {
+          id
+        }
+      }
+    `)
+  })
 })

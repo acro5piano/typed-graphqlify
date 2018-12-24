@@ -232,7 +232,7 @@ Just add array to your query. This does not change the result of compile, but Ty
 
 ```graphql
 query getUsers {
-  users {
+  users(status: 'active') {
     id
     name
   }
@@ -244,6 +244,7 @@ graphqlify('query', {
   getUsers: {
     users: [
       {
+        __params: { status: 'active' },
         id: types.number,
         name: types.string,
       },
