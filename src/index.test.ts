@@ -16,6 +16,7 @@ describe('graphqlify', () => {
         },
       },
     }
+
     const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
@@ -93,6 +94,7 @@ describe('graphqlify', () => {
         },
       },
     }
+
     const actual = graphqlify('query', queryObject)
 
     expect(actual).toEqual(gql`
