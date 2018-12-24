@@ -299,6 +299,39 @@ graphqlify('query', {
 })
 ```
 
+## Enum field
+
+Use `types.oneOf` method to define Enum field.
+
+```graphql
+query getUser {
+  user {
+    id
+    name
+    type # <-- `Student` or `Teacher`
+  }
+}
+```
+
+```typescript
+enum UserType {
+  'Student',
+  'Teacher',
+}
+
+graphqlify('query', {
+  getUser: {
+    user: {
+      id: types.number,
+      name: types.string,
+      type: types.oneOf(UserType),
+    },
+  },
+})
+```
+
+Note: Currently creating type from array element is not supported in TypeScript. See https://github.com/Microsoft/TypeScript/issues/28046
+
 ## Multiple Queries
 
 Add other queries at the same level of the other query.
@@ -336,7 +369,7 @@ See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-g
 # TODO
 
 - [x] Optional support
-- [ ] Enum support
+- [x] Enum support
 
 # Thanks
 

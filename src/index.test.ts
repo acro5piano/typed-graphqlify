@@ -277,4 +277,38 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render enum', () => {
+    enum UserType {
+      'Student',
+      'Teacher',
+    }
+
+    const queryObject = {
+      getUser: {
+        user: {
+          id: types.number,
+          type: types.oneOf(UserType),
+        },
+      },
+    }
+    const actual = graphqlify('query', queryObject)
+
+    // just type check
+    // const a: GraphQLData<typeof queryObject> = {
+    //   user: {
+    //     id: 1,
+    //     type: 'foo',
+    //   },
+    // }
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
 })
