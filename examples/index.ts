@@ -1,6 +1,4 @@
-// import { graphqlify, types } from '../dist/index'
-// import { graphqlify, types } from 'typed-graphqlify'
-import { graphqlify, types } from './node_modules/typed-graphqlify/dist'
+import { graphqlify, types, GraphQLData } from 'typed-graphqlify'
 
 async function executeGraphql(gqlString: string): Promise<any> {
   return 0
@@ -37,7 +35,9 @@ console.log(gqlString)
 
 async function run() {
   // We would like to type this!
-  const result: typeof getUserQuery = await executeGraphql(graphqlify('query', getUserQuery))
+  const result: GraphQLData<typeof getUserQuery> = await executeGraphql(
+    graphqlify('query', getUserQuery),
+  )
 
   // As we cast `result` to `typeof getUser`,
   // Now, `result` type looks like this:

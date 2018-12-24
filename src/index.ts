@@ -15,7 +15,7 @@ export class types {
 
 const filterParams = (k: string) => k !== '__params'
 
-type QueryType = 'query' | 'mutation'
+type QueryType = 'query' | 'mutation' | 'subscription'
 
 export const graphqlify = (type: QueryType, obj: any) => {
   const operationName = Object.keys(obj).filter(filterParams)[0]

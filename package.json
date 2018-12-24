@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
   "keywords": [
       "graphql",
@@ -11,15 +11,17 @@
   "author": "gosho-kazuya <ketsume0211@gmail.com>",
   "license": "MIT",
   "private": false,
-  "main": "dist/index.js",
-  "jsnext:main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist",
+  "jsnext:main": "dist",
+  "module": "dist",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
-    "dist": "npm-run-all clean build",
+    "copy-dts": "cp dist/src/index.d.ts dist",
+    "dist": "npm-run-all clean build copy-dts",
     "test": "jest --maxWorkers=4",
-    "prepublish": "npm run build"
+    "prepublish": "npm run dist"
   },
   "dependencies": {},
   "devDependencies": {
