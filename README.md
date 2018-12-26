@@ -86,7 +86,7 @@ Note that we use our `types` helper to define types in the result.
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-const gqlString = graphqlify('query', getUserQuery)
+const gqlString = graphqlify.query(getUserQuery)
 
 console.log(gqlString)
 // =>
@@ -151,7 +151,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify('query', {
+graphqlify.query({
   getUser: {
     user: {
       id: types.number,
@@ -176,7 +176,7 @@ mutation updateUser($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify('mutation', {
+graphqlify.mutation({
   __params: { $input: 'UserInput!' },
   updateUser: {
     __params: { input: '$input' },
@@ -212,7 +212,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify('query', {
+graphqlify.query({
   getUser: {
     user: {
       id: types.number,
@@ -248,7 +248,7 @@ query getUsers {
 ```
 
 ```typescript
-graphqlify('query', {
+graphqlify.query({
   getUsers: {
     users: [
       {
@@ -268,7 +268,7 @@ Add `types.optional` or `optional` helper method to define optional field.
 ```typescript
 import { types, optional } from 'typed-graphqlify'
 
-graphqlify('query', {
+graphqlify.query({
   getUser: {
     user: {
       id: types.number,
@@ -296,7 +296,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify('query', {
+graphqlify.query({
   getUser: {
     user: {
       id: types.number,
@@ -327,7 +327,7 @@ enum UserType {
   'Teacher',
 }
 
-graphqlify('query', {
+graphqlify.query({
   getUser: {
     user: {
       id: types.number,
@@ -358,7 +358,7 @@ query getFatherAndMother {
 ```
 
 ```typescript
-graphqlify('query', {
+graphqlify.query({
   getFatherAndMother: {
     father: {
       id: types.number,

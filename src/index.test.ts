@@ -18,7 +18,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -42,7 +42,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -67,7 +67,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -96,7 +96,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -123,7 +123,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -151,7 +151,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser($id: Number) {
@@ -175,7 +175,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('mutation', queryObject)
+    const actual = graphqlify.mutation(queryObject)
 
     expect(actual).toEqual(gql`
       mutation updateUser($name: String!) {
@@ -194,7 +194,7 @@ describe('graphqlify', () => {
         }),
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -215,7 +215,7 @@ describe('graphqlify', () => {
         ],
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers {
@@ -235,7 +235,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     // just type check
     // const a: GraphQLData<typeof queryObject> = {
@@ -267,7 +267,7 @@ describe('graphqlify', () => {
         ],
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers($status: String!) {
@@ -292,7 +292,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify('query', queryObject)
+    const actual = graphqlify.query(queryObject)
 
     // just type check
     // const a: GraphQLData<typeof queryObject> = {
