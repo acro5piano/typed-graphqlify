@@ -380,7 +380,7 @@ There are some GraphQL -> TypeScript convertion tools. The most famous one is Ap
 
 https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
 
-In this section, we would like to explain why `typed-graphlify` comes.
+In this section, we would like to explain why `typed-graphqlify` comes.
 
 Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
 
@@ -408,7 +408,7 @@ Currently Apollo codegen cannot handle multiple schemas.
 
 Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is taken?
 
-## typed-graphlify works even without schema
+## typed-graphqlify works even without schema
 
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
 I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.
