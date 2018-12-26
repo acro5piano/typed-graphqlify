@@ -18,7 +18,7 @@ const getUserQuery = {
   },
 }
 
-const gqlString = graphqlify('query', getUserQuery)
+const gqlString = graphqlify.query(getUserQuery)
 
 console.log(gqlString)
 // =>

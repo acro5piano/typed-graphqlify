@@ -25,9 +25,7 @@ export class types {
 
 const filterParams = (k: string) => k !== '__params'
 
-type QueryType = 'query' | 'mutation' | 'subscription'
-
-export const graphqlify = (type: QueryType, obj: any) => {
+function compileToGql(obj: any) {
   const operationName = Object.keys(obj).filter(filterParams)[0]
   const query = obj[operationName]
   const operationParams = getParams(query.__params)
@@ -44,7 +42,19 @@ export const graphqlify = (type: QueryType, obj: any) => {
     })
     .join(' ')
 
-  return `${type} ${operationName}${operationParams} { ${fields} }`
+  return `${operationName}${operationParams} { ${fields} }`
+}
+
+export const graphqlify = {
+  query(obj: any) {
+    return `query ${compileToGql(obj)}`
+  },
+  mutation(obj: any) {
+    return `mutation ${compileToGql(obj)}`
+  },
+  subscription(obj: any) {
+    return `subscription ${compileToGql(obj)}`
+  },
 }
 
 // TODO: Tail Call Recursion
