@@ -12,8 +12,8 @@
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
-  "jsnext:main": "dist/index.js",
-  "module": "dist/index.js",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
