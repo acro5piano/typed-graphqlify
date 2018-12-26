@@ -376,22 +376,28 @@ See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-g
 
 # Why not use `apollo client:codegen`?
 
+There are some GraphQL -> TypeScript convertion tools. The most famous one is Apollo codegen:
+
+https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
+
+In this section, we would like to explain why `typed-graphlify` comes.
+
 Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
 
 ## Simplicity
 
 Apollo codegen is a great tool. In addition to generating query interfaces, it does a lot of tasks including downloading schema, schema validation, fragment spreading, etc.
 
-But, usability is the tradeoff of complexity.
+However, great usability is the tradeoff of complexity.
 
 There are some issues to generate interfaces with Apollo codegen.
 
 - https://github.com/apollographql/apollo-tooling/issues/791
 - https://github.com/apollographql/apollo-tooling/issues/678
 
-I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too fuge to find out what is the problem.
+I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too large to find out what is the problem.
 
-On the other hand, typed-graphqlify is as simple as possible runtime typed tool and the logic is quite easy, so I think if some issues happen we can fix them easily.
+On the other hand, `typed-graphqlify` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
 
 ## Multiple Queres problem
 
@@ -405,15 +411,7 @@ Although I know this is a kind of edge case, but if we have the same type name o
 ## typed-graphlify works even without schema
 
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
-I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reason.
-
-## Readability (heavily depends on person)
-
-This is really personal opinion, but I feel more comfortable to write typed-graphqlify's query than graphql + schema + apollo.
-
-## Conclution
-
-I wrote a lot here, but I just wanted to try the paradigm TypeScript -> GraphQL conversion, because there are no tools to do that, unlike GraphQL -> TypeScript conversion tools.
+I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.
 
 # TODO
 
