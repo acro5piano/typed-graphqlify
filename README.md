@@ -380,6 +380,8 @@ There are some GraphQL -> TypeScript convertion tools. The most famous one is Ap
 
 https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
 
+In this section, we would like to explain why `typed-graphlify` comes.
+
 Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
 
 ## Simplicity
