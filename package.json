@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "1.0.1",
+  "version": "2.0.0-alpha",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
   "keywords": [
     "graphql",
@@ -18,8 +18,7 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
-    "copy-dts": "cp dist/src/index.d.ts dist",
-    "dist": "npm-run-all clean build copy-dts",
+    "dist": "npm-run-all clean build",
     "test": "jest --maxWorkers=4",
     "prepublish": "npm run dist"
   },

@@ -86,7 +86,7 @@ Note that we use our `types` helper to define types in the result.
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-const gqlString = graphqlify.query(getUserQuery)
+const gqlString = graphqlify.query('getUser', getUserQuery)
 
 console.log(gqlString)
 // =>
@@ -151,13 +151,33 @@ query getUser {
 ```
 
 ```typescript
+graphqlify.query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    isActive: types.boolean,
+  },
+})
+```
+
+Or without query name
+
+```graphql
+query {
+  user {
+    id
+    name
+    isActive
+  }
+}
+```
+
+```typescript
 graphqlify.query({
-  getUser: {
-    user: {
-      id: types.number,
-      name: types.string,
-      isActive: types.boolean,
-    },
+  user: {
+    id: types.number,
+    name: types.string,
+    isActive: types.boolean,
   },
 })
 ```
@@ -212,21 +232,19 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query({
-  getUser: {
-    user: {
+graphqlify.query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    parent: {
       id: types.number,
       name: types.string,
-      parent: {
+      grandParent: {
         id: types.number,
         name: types.string,
-        grandParent: {
+        children: {
           id: types.number,
           name: types.string,
-          children: {
-            id: types.number,
-            name: types.string,
-          },
         },
       },
     },
@@ -248,16 +266,14 @@ query getUsers {
 ```
 
 ```typescript
-graphqlify.query({
-  getUsers: {
-    users: [
-      {
-        __params: { status: 'active' },
-        id: types.number,
-        name: types.string,
-      },
-    ],
-  },
+graphqlify.query('users', {
+  users: [
+    {
+      __params: { status: 'active' },
+      id: types.number,
+      name: types.string,
+    },
+  ],
 })
 ```
 
@@ -268,15 +284,13 @@ Add `types.optional` or `optional` helper method to define optional field.
 ```typescript
 import { types, optional } from 'typed-graphqlify'
 
-graphqlify.query({
-  getUser: {
-    user: {
+graphqlify.query('getUser', {
+  user: {
+    id: types.number,
+    name: types.optional.string, // <-- user.name is `string | undefined`
+    bankAccount: optional({      // <-- user.bankAccount is `{ id: number } | undefined`
       id: types.number,
-      name: types.optional.string, // <-- user.name is `string | undefined`
-      bankAccount: optional({      // <-- user.bankAccount is `{ id: number } | undefined`
-        id: types.number,
-      }),
-    },
+    }),
   },
 }
 ```
@@ -296,13 +310,11 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query({
-  getUser: {
-    user: {
-      id: types.number,
-      name: types.string,
-      __typename: types.constant('User'),
-    },
+graphqlify.query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    __typename: types.constant('User'),
   },
 })
 ```
@@ -327,13 +339,11 @@ enum UserType {
   'Teacher',
 }
 
-graphqlify.query({
-  getUser: {
-    user: {
-      id: types.number,
-      name: types.string,
-      type: types.oneOf(UserType),
-    },
+graphqlify.query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    type: types.oneOf(UserType),
   },
 })
 ```
@@ -358,16 +368,14 @@ query getFatherAndMother {
 ```
 
 ```typescript
-graphqlify.query({
-  getFatherAndMother: {
-    father: {
-      id: types.number,
-      name: types.string,
-    },
-    mother: {
-      id: types.number,
-      name: types.number,
-    },
+graphqlify.query('getFatherAndMother', {
+  father: {
+    id: types.number,
+    name: types.string,
+  },
+  mother: {
+    id: types.number,
+    name: types.number,
   },
 })
 ```
