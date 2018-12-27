@@ -1,8 +1,6 @@
 import { graphqlify, types, optional } from '../index'
 import { gql } from './test-utils'
 
-// import { GraphQLData } from './index'
-
 describe('graphqlify', () => {
   it('render GraphQL', () => {
     const queryObject = {
@@ -248,7 +246,7 @@ describe('graphqlify', () => {
     const actual = graphqlify.query('getUsers', queryObject)
 
     // just type check
-    // const a: GraphQLData<typeof queryObject> = {
+    // const a: typeof queryObject = {
     //   users: {
     //     id: 1,
     //     __typename: 'User',

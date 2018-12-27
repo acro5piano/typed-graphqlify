@@ -1,7 +1,7 @@
-import { filterParams, getParams, joinFieldRecursively } from "./helpers";
+import { filterParams, getParams, joinFieldRecursively } from './helpers'
 
 interface QueryObject {
-  [x: string]: any;
+  [x: string]: any
 }
 
 export const compileToGql = (query: any) => {
@@ -20,11 +20,11 @@ export const compileToGql = (query: any) => {
   return `{ ${fields} }`
 }
 
-function createOperate (operateType: string) {
-  function operate(queryObject: QueryObject): string;
-  function operate(operationName: string, queryObject: QueryObject): string;
+function createOperate(operateType: string) {
+  function operate(queryObject: QueryObject): string
+  function operate(operationName: string, queryObject: QueryObject): string
   function operate(opNameOrQueryObject: string | QueryObject, queryObject?: QueryObject): string {
-    if (typeof opNameOrQueryObject === "string") {
+    if (typeof opNameOrQueryObject === 'string') {
       const operationParams = getParams((queryObject as QueryObject).__params)
 
       return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql(queryObject)}`
