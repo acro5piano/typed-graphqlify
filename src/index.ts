@@ -23,7 +23,7 @@ export class types {
   static oneOf = oneOf
 }
 
-const filterParams = (k: string) => k !== '__params'
+const filterParams = (k: string) => k !== '__params' && k !== '__alias'
 
 function compileToGql(obj: any) {
   const operationName = Object.keys(obj).filter(filterParams)[0]
@@ -33,12 +33,14 @@ function compileToGql(obj: any) {
   const fields = Object.keys(query)
     .filter(filterParams)
     .map(dataType => {
+      console.log(dataType)
       let params = getParams(query[dataType].__params)
       if (Array.isArray(query[dataType])) {
         params = getParams(query[dataType][0].__params)
       }
+      const alias = query[dataType].__alias;
       const joinedFields = joinFieldRecursively(query[dataType])
-      return `${dataType}${params} { ${joinedFields} }`
+      return `${alias ? `${alias}: ` : ''}${dataType}${params} { ${joinedFields} }`
     })
     .join(' ')
 

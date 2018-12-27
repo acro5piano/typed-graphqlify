@@ -7,6 +7,7 @@ describe('graphqlify', () => {
     const queryObject = {
       getUser: {
         user: {
+          __alias: 'maleUser',
           __params: { id: 1 },
           id: types.number,
           name: types.string,
@@ -22,7 +23,7 @@ describe('graphqlify', () => {
 
     expect(actual).toEqual(gql`
       query getUser {
-        user(id: 1) {
+        maleUser: user(id: 1) {
           id
           name
           bankAccount {
