@@ -33,7 +33,6 @@ function compileToGql(obj: any) {
   const fields = Object.keys(query)
     .filter(filterParams)
     .map(dataType => {
-      console.log(dataType)
       let params = getParams(query[dataType].__params)
       if (Array.isArray(query[dataType])) {
         params = getParams(query[dataType][0].__params)
