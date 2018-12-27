@@ -426,6 +426,10 @@ I agree that we should avoid to use such frameworks, but there must be situation
 - [x] Optional support
 - [x] Enum support
 
+# Contributing
+
+To get started with a development installation of the typed-graphqlify, follow the instructions at our [Contribution Guide](./contributing.md).
+
 # Thanks
 
 Inspired by
