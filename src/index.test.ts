@@ -7,7 +7,6 @@ describe('graphqlify', () => {
     const queryObject = {
       getUser: {
         user: {
-          __alias: 'maleUser',
           __params: { id: 1 },
           id: types.number,
           name: types.string,
@@ -23,7 +22,7 @@ describe('graphqlify', () => {
 
     expect(actual).toEqual(gql`
       query getUser {
-        maleUser: user(id: 1) {
+        user(id: 1) {
           id
           name
           bankAccount {
@@ -308,6 +307,38 @@ describe('graphqlify', () => {
         user {
           id
           type
+        }
+      }
+    `)
+  })
+
+  it('render GraphQL alias', () => {
+    const queryObject = {
+      getUser: {
+        user: {
+          __alias: 'maleUser',
+          __params: { id: 1 },
+          id: types.number,
+          name: types.string,
+          bankAccount: {
+            id: types.number,
+            branch: types.string,
+          },
+        },
+      },
+    }
+
+    const actual = graphqlify.query(queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        maleUser: user(id: 1) {
+          id
+          name
+          bankAccount {
+            id
+            branch
+          }
         }
       }
     `)
