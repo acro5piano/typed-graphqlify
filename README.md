@@ -428,7 +428,7 @@ I agree that we should avoid to use such frameworks, but there must be situation
 
 # Contributing
 
-To get started with a development installation of the typed-graphqlify, follow the instructions at our [Contribution Guide](./contributing.md).
+To get started with a development installation of the typed-graphqlify, follow the instructions at our [Contribution Guide](./CONTRIBUTING.md).
 
 # Thanks
 
