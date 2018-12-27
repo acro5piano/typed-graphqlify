@@ -18,8 +18,7 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
-    "copy-dts": "cp dist/src/index.d.ts dist",
-    "dist": "npm-run-all clean build copy-dts",
+    "dist": "npm-run-all clean build",
     "test": "jest --maxWorkers=4",
     "prepublish": "npm run dist"
   },
