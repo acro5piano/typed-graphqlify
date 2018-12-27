@@ -242,7 +242,7 @@ describe('graphqlify', () => {
     `)
   })
 
-  it.skip('render mutation with custom type name', () => {
+  it('render mutation with custom type name', () => {
     const queryObject = {
       updateUser: params(
         { input: types.raw('UserInput') },
@@ -255,7 +255,7 @@ describe('graphqlify', () => {
 
     expect(actual).toEqual(gql`
       mutation updateUser($input: UserInput) {
-        updateUser(name: $name) {
+        updateUser(input: $input) {
           id
         }
       }

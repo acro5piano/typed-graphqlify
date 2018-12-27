@@ -36,9 +36,9 @@ class CoreType {
 }
 
 class RawType {
-  name: string
-  constructor(name: string) {
-    this.name = name
+  raw: string
+  constructor(raw: string) {
+    this.raw = raw
   }
 }
 
@@ -78,6 +78,9 @@ const getParams = (params: any) => {
         return `${key}: $${key}`
       } else if (paramValue instanceof OperationVariable) {
         return `${key}: $${paramValue.varName}`
+      }
+      if (paramValue instanceof RawType) {
+        return `${key}: $${key}`
       } else {
         return `${key}: ${paramValue}`
       }
@@ -87,7 +90,7 @@ const getParams = (params: any) => {
 }
 
 function compileToGql(queryObject: any, opName: string) {
-  const operationParamsObject: { [key: string]: CoreType | OperationVariable } = {}
+  const operationParamsObject: { [key: string]: CoreType | OperationVariable | RawType } = {}
 
   const fields = Object.keys(queryObject)
     .map(fieldName => {
@@ -101,7 +104,11 @@ function compileToGql(queryObject: any, opName: string) {
           const newParamDef = paramsObject[paramName]
           // console.log('newParamDef: ', newParamDef, paramName)
 
-          if (!(newParamDef instanceof CoreType) && !(newParamDef instanceof OperationVariable)) {
+          if (
+            !(newParamDef instanceof CoreType) &&
+            !(newParamDef instanceof OperationVariable) &&
+            !(newParamDef instanceof RawType)
+          ) {
             // this is just a raw value-we put it inline without naming a variable
             return
           }
@@ -135,9 +142,13 @@ function compileToGql(queryObject: any, opName: string) {
           const exclamationMark = value.coreType.optional ? '' : '!'
 
           return '$' + key + ': ' + value.coreType.type + exclamationMark
+        } else if (value instanceof CoreType) {
+          const exclamationMark = value.optional ? '' : '!'
+          return '$' + key + ': ' + value.type + exclamationMark
+        } else if (value instanceof RawType) {
+          return '$' + key + ': ' + value.raw
         }
-        const exclamationMark = value.optional ? '' : '!'
-        return '$' + key + ': ' + value.type + exclamationMark
+        throw new Error(`unknown param type`)
       })
       .join(', ')})`
     return `${opName}${operationParamsString} { ${fields} }`
