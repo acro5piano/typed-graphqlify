@@ -64,12 +64,12 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types } from 'typed-graphqlify'
+import { graphqlify, types, params } from 'typed-graphqlify'
 
 const getUserQuery = {
-  getUser: {
-    user: {
-      __params: { id: 1 },
+  user: params(
+    { id: 1 },
+    {
       id: types.number,
       name: types.string,
       bankAccount: {
@@ -77,7 +77,7 @@ const getUserQuery = {
         branch: types.optional.string,
       },
     },
-  },
+  ),
 }
 ```
 
@@ -90,7 +90,7 @@ const gqlString = graphqlify.query(getUserQuery)
 
 console.log(gqlString)
 // =>
-//   query getUser {
+//   query {
 //     user(id: 1) {
 //       id
 //       name
@@ -110,7 +110,7 @@ import { GraphQLData } from 'typed-graphqlify'
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
-const result: GraphQLData<typeof getUser> = await executeGraphql(gqlString)
+const result: GraphQLData<typeof getUserQuery> = await executeGraphql(gqlString)
 
 // As we cast `result` to `typeof getUser`,
 // Now, `result` type looks like this:
@@ -151,15 +151,16 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query({
-  getUser: {
+graphqlify.query(
+  {
     user: {
       id: types.number,
       name: types.string,
       isActive: types.boolean,
     },
   },
-})
+  'getUser',
+)
 ```
 
 ## Basic Mutation
@@ -176,14 +177,47 @@ mutation updateUser($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify.mutation({
-  __params: { $input: 'UserInput!' },
-  updateUser: {
-    __params: { input: '$input' },
-    id: types.number,
-    name: types.string,
+graphqlify.mutation(
+  {
+    updateUser: params(
+      { input: types.raw('UserInput') },
+      {
+        id: types.number,
+      },
+    ),
   },
-})
+  'updateUser',
+)
+```
+
+## Mutation with a named variable
+
+By default graphql variables are named the same as they are defined in the field. When you have multiple fields with the same variable name, you need to rename them. Use `$` for this:
+
+```typescript
+import { graphqlify, types, params, $ } from 'typed-graphqlify'
+graphqlify.mutation(
+  {
+    updateUser: params(
+      { input: $('userInput', types.raw('UserInput')) },
+      {
+        id: types.number,
+      },
+    ),
+  },
+  'updateUser',
+)
+```
+
+this results as:
+
+```graphql
+mutation updateUser($userInput: UserInput!) {
+  updateUser(input: $userInput) {
+    id
+    name
+  }
+}
 ```
 
 ## Nested Query
@@ -212,8 +246,8 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query({
-  getUser: {
+graphqlify.query(
+  {
     user: {
       id: types.number,
       name: types.string,
@@ -231,7 +265,8 @@ graphqlify.query({
       },
     },
   },
-})
+  'getUser',
+)
 ```
 
 ## Array Field
@@ -248,17 +283,16 @@ query getUsers {
 ```
 
 ```typescript
-graphqlify.query({
-  getUsers: {
-    users: [
+graphqlify.query(
+  {
+    users: params({ status: types.string }, [
       {
-        __params: { status: 'active' },
         id: types.number,
-        name: types.string,
       },
-    ],
+    ]),
   },
-})
+  'getUsers',
+)
 ```
 
 ## Optional Field
@@ -268,17 +302,19 @@ Add `types.optional` or `optional` helper method to define optional field.
 ```typescript
 import { types, optional } from 'typed-graphqlify'
 
-graphqlify.query({
-  getUser: {
+graphqlify.query(
+  {
     user: {
       id: types.number,
       name: types.optional.string, // <-- user.name is `string | undefined`
-      bankAccount: optional({      // <-- user.bankAccount is `{ id: number } | undefined`
+      bankAccount: optional({
+        // <-- user.bankAccount is `{ id: number } | undefined`
         id: types.number,
       }),
     },
   },
-}
+  'getUser',
+)
 ```
 
 ## Constant field
@@ -296,15 +332,16 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query({
-  getUser: {
+graphqlify.query(
+  {
     user: {
       id: types.number,
       name: types.string,
       __typename: types.constant('User'),
     },
   },
-})
+  'getUser',
+)
 ```
 
 ## Enum field
@@ -327,15 +364,16 @@ enum UserType {
   'Teacher',
 }
 
-graphqlify.query({
-  getUser: {
+graphqlify.query(
+  {
     user: {
       id: types.number,
       name: types.string,
       type: types.oneOf(UserType),
     },
   },
-})
+  'getUser',
+)
 ```
 
 Note: Currently creating type from array element is not supported in TypeScript. See https://github.com/Microsoft/TypeScript/issues/28046
@@ -358,8 +396,8 @@ query getFatherAndMother {
 ```
 
 ```typescript
-graphqlify.query({
-  getFatherAndMother: {
+graphqlify.query(
+  {
     father: {
       id: types.number,
       name: types.string,
@@ -369,7 +407,8 @@ graphqlify.query({
       name: types.number,
     },
   },
-})
+  'getFatherAndMother',
+)
 ```
 
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
@@ -399,7 +438,7 @@ I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is to
 
 On the other hand, `typed-graphqlify` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
 
-## Multiple Queres problem
+## Multiple Queries problem
 
 Currently Apollo codegen cannot handle multiple schemas.
 
@@ -412,11 +451,6 @@ Although I know this is a kind of edge case, but if we have the same type name o
 
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
 I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.
-
-# TODO
-
-- [x] Optional support
-- [x] Enum support
 
 # Thanks
 
