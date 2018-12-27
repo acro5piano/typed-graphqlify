@@ -67,15 +67,13 @@ First, define GraphQL-like JS Object:
 import { graphqlify, types } from 'typed-graphqlify'
 
 const getUserQuery = {
-  getUser: {
-    user: {
-      __params: { id: 1 },
+  user: {
+    __params: { id: 1 },
+    id: types.number,
+    name: types.string,
+    bankAccount: {
       id: types.number,
-      name: types.string,
-      bankAccount: {
-        id: types.number,
-        branch: types.optional.string,
-      },
+      branch: types.optional.string,
     },
   },
 }
@@ -105,12 +103,10 @@ console.log(gqlString)
 Finally, execute the GraphQL:
 
 ```typescript
-// GraphQLData is a type helper which returns one level down
-import { GraphQLData } from 'typed-graphqlify'
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
-const result: GraphQLData<typeof getUser> = await executeGraphql(gqlString)
+const result: typeof getUser = await executeGraphql(gqlString)
 
 // As we cast `result` to `typeof getUser`,
 // Now, `result` type looks like this:
