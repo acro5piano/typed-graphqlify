@@ -1,4 +1,4 @@
-export const filterParams = (k: string) => k !== '__params' && k !== '__alias'
+export const filterParams = (k: string) => k !== '__params'
 
 export const getParams = (params: any) => {
   if (!params) {
@@ -25,4 +25,4 @@ export const joinFieldRecursively = (fieldOrObject: any): string => {
     })
     .join(' ')
   return joinedFields
-  }
+}
