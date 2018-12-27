@@ -86,7 +86,7 @@ Note that we use our `types` helper to define types in the result.
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-const gqlString = graphqlify.query(getUserQuery)
+const gqlString = graphqlify.query('getUser', getUserQuery)
 
 console.log(gqlString)
 // =>
