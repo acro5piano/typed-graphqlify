@@ -16,11 +16,8 @@ const compileToFied = (name: string, query: QueryObject) => {
 export const compileToGql = (query: QueryObject) => {
   const fields = Object.keys(query)
     .filter(filterParams)
-    .map(dataType => {
-      return compileToFied(dataType, query[dataType])
-    })
+    .map(dataType =>  compileToFied(dataType, query[dataType]))
     .join(' ')
-  console.log(fields)
   return `{ ${fields} }`
 }
 
@@ -30,7 +27,6 @@ function createOperate(operateType: string) {
   function operate(opNameOrQueryObject: string | QueryObject, queryObject?: QueryObject): string {
     if (typeof opNameOrQueryObject === 'string') {
       const operationParams = getParams((queryObject as QueryObject).__params)
-
       return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql((queryObject as QueryObject))}`
     }
     const operationParams = getParams(opNameOrQueryObject.__params)
