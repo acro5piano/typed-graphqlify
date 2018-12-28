@@ -4,19 +4,23 @@ interface QueryObject {
   [x: string]: any
 }
 
-export const compileToGql = (query: any) => {
+const compileToFied = (name: string, query: QueryObject) => {
+  let params = getParams(query.__params)
+  if (Array.isArray(query)) {
+    params = getParams(query[0].__params)
+  }
+  const joinedFields = joinFieldRecursively(query)
+  return `${name}${params} { ${joinedFields} }`
+}
+
+export const compileToGql = (query: QueryObject) => {
   const fields = Object.keys(query)
     .filter(filterParams)
     .map(dataType => {
-      let params = getParams(query[dataType].__params)
-      if (Array.isArray(query[dataType])) {
-        params = getParams(query[dataType][0].__params)
-      }
-      const joinedFields = joinFieldRecursively(query[dataType])
-      return `${dataType}${params} { ${joinedFields} }`
+      return compileToFied(dataType, query[dataType])
     })
     .join(' ')
-
+  console.log(fields)
   return `{ ${fields} }`
 }
 
@@ -27,7 +31,7 @@ function createOperate(operateType: string) {
     if (typeof opNameOrQueryObject === 'string') {
       const operationParams = getParams((queryObject as QueryObject).__params)
 
-      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql(queryObject)}`
+      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql((queryObject as QueryObject))}`
     }
     const operationParams = getParams(opNameOrQueryObject.__params)
     return `${operateType} ${operationParams}${compileToGql(opNameOrQueryObject)}`
@@ -39,4 +43,8 @@ export const graphqlify = {
   query: createOperate('query'),
   mutation: createOperate('mutation'),
   subscription: createOperate('subscription'),
+}
+
+export const alias = (name: string, query: string) => {
+  return `${name}: ${query}`
 }
