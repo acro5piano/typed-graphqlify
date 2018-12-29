@@ -376,6 +376,28 @@ graphqlify.query('getFatherAndMother', {
 })
 ```
 
+## Query Alias
+
+Query Alias is implemented in dynamic property.
+
+```graphql
+query getMaleUser {
+  maleUser: user {
+    id
+    name
+  }
+}
+```
+
+```typescript
+graphqlify.query('getMaleUser', {
+  [alias('maleUser', 'user')]: {
+    id: types.number,
+    name: types.string,
+  },
+}
+```
+
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
 
 # Why not use `apollo client:codegen`?

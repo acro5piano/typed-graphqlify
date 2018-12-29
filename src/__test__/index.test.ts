@@ -44,7 +44,6 @@ describe('graphqlify', () => {
         },
       }
     }
-    console.log('queryObject', queryObject)
 
     const actual = graphqlify.query(queryObject)
 

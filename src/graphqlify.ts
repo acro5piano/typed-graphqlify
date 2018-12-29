@@ -4,7 +4,7 @@ interface QueryObject {
   [x: string]: any
 }
 
-const compileToFied = (name: string, query: QueryObject) => {
+const compileToField = (name: string, query: QueryObject) => {
   let params = getParams(query.__params)
   if (Array.isArray(query)) {
     params = getParams(query[0].__params)
@@ -16,7 +16,7 @@ const compileToFied = (name: string, query: QueryObject) => {
 export const compileToGql = (query: QueryObject) => {
   const fields = Object.keys(query)
     .filter(filterParams)
-    .map(dataType =>  compileToFied(dataType, query[dataType]))
+    .map(dataType => compileToField(dataType, query[dataType]))
     .join(' ')
   return `{ ${fields} }`
 }
@@ -27,7 +27,9 @@ function createOperate(operateType: string) {
   function operate(opNameOrQueryObject: string | QueryObject, queryObject?: QueryObject): string {
     if (typeof opNameOrQueryObject === 'string') {
       const operationParams = getParams((queryObject as QueryObject).__params)
-      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql((queryObject as QueryObject))}`
+      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql(
+        queryObject as QueryObject,
+      )}`
     }
     const operationParams = getParams(opNameOrQueryObject.__params)
     return `${operateType} ${operationParams}${compileToGql(opNameOrQueryObject)}`
