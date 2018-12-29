@@ -31,7 +31,6 @@ describe('graphqlify', () => {
     `)
   })
 
-
   it('render GraphQL alias', () => {
     const queryObject = {
       [alias('maleUser', 'user')]: {
@@ -42,7 +41,7 @@ describe('graphqlify', () => {
           id: types.number,
           branch: types.string,
         },
-      }
+      },
     }
 
     const actual = graphqlify.query(queryObject)
@@ -187,7 +186,7 @@ describe('graphqlify', () => {
 
   it('render operation params', () => {
     const queryObject = {
-      __params: { $id: 'Number' },
+      __params: { $id: 'Int!' },
       user: {
         __params: { id: 1 },
         id: types.number,
@@ -200,7 +199,7 @@ describe('graphqlify', () => {
     const actual = graphqlify.query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
-      query getUser($id: Number) {
+      query getUser($id: Int!) {
         user(id: 1) {
           id
         }
@@ -293,7 +292,7 @@ describe('graphqlify', () => {
     `)
   })
 
-  it('render parameters when array', () => {
+  it('render parameters when field is array', () => {
     const queryObject = {
       __params: { $status: 'String!' },
       users: [
