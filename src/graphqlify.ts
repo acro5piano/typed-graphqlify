@@ -43,6 +43,6 @@ export const graphqlify = {
   subscription: createOperate('subscription'),
 }
 
-export const alias = (name: string, query: string) => {
-  return `${name}: ${query}`
+export function alias<T extends string>(alias: T, target: string): T {
+  return `${alias}: ${target}` as T
 }

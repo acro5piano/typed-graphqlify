@@ -327,14 +327,6 @@ describe('graphqlify', () => {
     }
     const actual = graphqlify.query('getUser', queryObject)
 
-    // just type check
-    // const a: GraphQLData<typeof queryObject> = {
-    //   user: {
-    //     id: 1,
-    //     type: 'foo',
-    //   },
-    // }
-
     expect(actual).toEqual(gql`
       query getUser {
         user {
