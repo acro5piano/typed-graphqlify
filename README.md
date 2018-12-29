@@ -417,7 +417,7 @@ query getHeroForEpisode {
 ```
 
 ```typescript
-graphqlify.query('getMaleUser', {
+graphqlify.query('getHeroForEpisode', {
   hero: {
     id: types.number,
     ...on('Droid', {
