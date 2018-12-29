@@ -1,3 +1,5 @@
+import { Fragment, FragmentMarker } from './types'
+
 export const filterParams = (k: string) => k !== '__params'
 
 export const getParams = (params: any) => {
@@ -15,6 +17,12 @@ export const joinFieldRecursively = (fieldOrObject: any): string => {
   const joinedFields = Object.keys(fieldOrObject)
     .filter(filterParams)
     .map(key => {
+      if (key.includes(FragmentMarker)) {
+        return fieldOrObject[key].render()
+      }
+      if (fieldOrObject instanceof Fragment) {
+        return fieldOrObject.render()
+      }
       if (Array.isArray(fieldOrObject)) {
         return `${joinFieldRecursively(fieldOrObject[0])}`
       }

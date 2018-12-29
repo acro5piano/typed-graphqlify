@@ -1,2 +1,2 @@
 export { graphqlify, alias } from './graphqlify'
-export { types, optional } from './types'
+export { types, optional, on } from './types'
