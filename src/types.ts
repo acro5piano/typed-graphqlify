@@ -13,9 +13,6 @@ export class Fragment<T> {
 
   render() {
     const joinedFields = Object.keys(this.fields).join(' ')
-    //   (car, cur) => ({ ...car, [cur]: '__' }),
-    //   {},
-    // )
     return `... on ${this.typeName} { ${joinedFields} }` as any
   }
 }
