@@ -19,6 +19,7 @@
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
     "dist": "npm-run-all clean build",
+    "format": "prettier --write src/**/*.ts",
     "test": "jest --maxWorkers=4",
     "test:coverage": "jest --maxWorkers=4 --coverage",
     "prepublish": "npm run dist"
@@ -39,11 +40,9 @@
     "tslib": "^1.9.3",
     "typescript": "^3.2.2"
   },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "echo tslint # tslint --fix 'src/**/*.ts'",
-      "prettier --write src/**/*.ts",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format"
+    }
   }
 }

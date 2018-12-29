@@ -292,7 +292,7 @@ describe('graphqlify', () => {
     `)
   })
 
-  it('render parameters when array', () => {
+  it('render parameters when field is array', () => {
     const queryObject = {
       __params: { $status: 'String!' },
       users: [
