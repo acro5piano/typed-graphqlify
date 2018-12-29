@@ -1,0 +1,13 @@
+{
+  "defaultSeverity": "error",
+  "jsRules": {},
+  "rules": {
+    "no-console": [true, "log"],
+    "no-debugger": true,
+    "no-duplicate-switch-case": true,
+    "no-duplicate-super": true,
+    "no-duplicate-variable": [true, "check-parameters"],
+    "no-var-keyword": true
+  },
+  "rulesDirectory": []
+}
