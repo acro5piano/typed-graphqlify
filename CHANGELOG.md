@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.0.2-alpha
+
+- add alias feature by @YardWill
+
+## 2.0.1-alpha
+
+- Delete type helper and fix readme by @acro5piano
+
 ## 2.0.0-alpha
 
 - Split the code and Overload the query function by @YardWill
