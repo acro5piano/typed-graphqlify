@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4-alpha
+
+- Support inline fragment by @acro5piano
+
 ## 2.0.3-alpha
 
 - Add type inference to query alias by @acro5piano
