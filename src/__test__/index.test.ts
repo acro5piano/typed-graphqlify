@@ -1,4 +1,4 @@
-import { graphqlify, types, optional } from '../index'
+import { graphqlify, types, optional, alias } from '../index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -20,6 +20,36 @@ describe('graphqlify', () => {
     expect(actual).toEqual(gql`
       query {
         user(id: 1) {
+          id
+          name
+          bankAccount {
+            id
+            branch
+          }
+        }
+      }
+    `)
+  })
+
+
+  it('render GraphQL alias', () => {
+    const queryObject = {
+      [alias('maleUser', 'user')]: {
+        __params: { id: 1 },
+        id: types.number,
+        name: types.string,
+        bankAccount: {
+          id: types.number,
+          branch: types.string,
+        },
+      }
+    }
+
+    const actual = graphqlify.query(queryObject)
+
+    expect(actual).toEqual(gql`
+      query {
+        maleUser: user(id: 1) {
           id
           name
           bankAccount {
