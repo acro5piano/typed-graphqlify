@@ -439,6 +439,18 @@ Although I know this is a kind of edge case, but if we have the same type name o
 Some graphql frameworks, such as laravel-graphql, cannot print schema as far as I know.
 I agree that we should avoid to use such frameworks, but there must be situations that we cannot get graphql schema for some reasons.
 
+## Write GraphQL programmatically
+
+It is useful to write GraphQL programmatically, although that is an edge case.
+
+Imagine AWS management console:
+
+![image](https://user-images.githubusercontent.com/10719495/50487625-79420580-0a42-11e9-882f-2b5d571ebd13.png)
+
+If you build something like that with GraphQL, you have to build GraphQL dynamically and programmatically.
+
+typed-graphqlify works for such cases without losing type information.
+
 # TODO
 
 - [x] Optional support
