@@ -398,6 +398,38 @@ graphqlify.query('getMaleUser', {
 }
 ```
 
+## Inline Fragment
+
+Use `on` helper to write inline fragments.
+
+```graphql
+query getHeroForEpisode {
+  hero {
+    id
+    ... on Droid {
+      primaryFunction
+    }
+    ... on Human {
+      height
+    }
+  }
+}
+```
+
+```typescript
+graphqlify.query('getMaleUser', {
+  hero: {
+    id: types.number,
+    ...on('Droid', {
+      primaryFunction: types.string,
+    }),
+    ...on('Human', {
+      height: types.number,
+    }),
+  },
+})
+```
+
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
 
 # Why not use `apollo client:codegen`?
