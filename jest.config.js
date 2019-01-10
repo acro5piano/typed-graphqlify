@@ -7,6 +7,8 @@ module.exports = {
   moduleNameMapper: {
     '^app(.*)$': '<rootDir>/src$1',
   },
+  coverageDirectory: './coverage/',
+  collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/*.ts'],
   automock: false,
   testEnvironment: 'jsdom',
