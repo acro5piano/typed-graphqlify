@@ -26,10 +26,11 @@ function createOperate(operateType: string) {
   function operate(operationName: string, queryObject: QueryObject): string
   function operate(opNameOrQueryObject: string | QueryObject, queryObject?: QueryObject): string {
     if (typeof opNameOrQueryObject === 'string') {
-      const operationParams = getParams((queryObject as QueryObject).__params)
-      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql(
-        queryObject as QueryObject,
-      )}`
+      if (!queryObject) {
+        throw new Error('queryObject is not set')
+      }
+      const operationParams = getParams(queryObject.__params)
+      return `${operateType} ${opNameOrQueryObject}${operationParams} ${compileToGql(queryObject)}`
     }
     const operationParams = getParams(opNameOrQueryObject.__params)
     return `${operateType} ${operationParams}${compileToGql(opNameOrQueryObject)}`
