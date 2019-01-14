@@ -1,14 +1,12 @@
 export const filterParams = (k: string) => k !== '__params'
 
-export const getParams = (params: any) => {
-  if (!params) {
-    return ''
-  }
-  const variables = Object.keys(params)
-    .map(key => `${key}: ${params[key]}`)
+const nestParams = (params: any): any =>
+  typeof params === 'object' ? `{ ${serializeParams(params)} }` : params
+const serializeParams = (params: any) =>
+  Object.keys(params)
+    .map(key => `${key}: ${nestParams(params[key])}`)
     .join(', ')
-  return `(${variables})`
-}
+export const getParams = (params: any) => (params ? `(${serializeParams(params)})` : '')
 
 // TODO: Tail Call Recursion
 export const joinFieldRecursively = (fieldOrObject: any): string => {
