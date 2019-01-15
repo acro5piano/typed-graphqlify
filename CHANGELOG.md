@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4-alpha
+
+- Support for nested params added @mlegenhausen
+
 ## 2.0.3-alpha
 
 - Add type inference to query alias by @acro5piano
