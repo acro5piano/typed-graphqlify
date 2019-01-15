@@ -336,4 +336,26 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render nested params', () => {
+    const queryObject = {
+      __params: { $param1: 'String!', $param2: 'Number' },
+      user: {
+        __params: { condition: { param1: '$param1', param2: '$param2' } },
+        id: types.number,
+        type: types.string,
+      },
+    }
+
+    const actual = graphqlify.query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser($param1: String!, $param2: Number) {
+        user(condition: { param1: $param1, param2: $param2 }) {
+          id
+          type
+        }
+      }
+    `)
+  })
 })
