@@ -183,7 +183,7 @@ graphqlify.query({
 Change the first argument of `graphqlify` to `mutation`.
 
 ```graphql
-mutation updateUser($input: UserInput!) {
+mutation updateUserMutation($input: UserInput!) {
   updateUser(input: $input) {
     id
     name
@@ -192,7 +192,7 @@ mutation updateUser($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify.mutation({
+graphqlify.mutation('updateUserMutation', {
   __params: { $input: 'UserInput!' },
   updateUser: {
     __params: { input: '$input' },
