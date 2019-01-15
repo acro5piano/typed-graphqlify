@@ -218,10 +218,10 @@ describe('graphqlify', () => {
         id: types.number,
       },
     }
-    const actual = graphqlify.mutation('updateUser', queryObject)
+    const actual = graphqlify.mutation('updateUserMutation', queryObject)
 
     expect(actual).toEqual(gql`
-      mutation updateUser($name: String!) {
+      mutation updateUserMutation($name: String!) {
         updateUser(name: $name) {
           id
         }
