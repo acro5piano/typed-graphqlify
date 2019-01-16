@@ -274,19 +274,42 @@ describe('graphqlify', () => {
     }
     const actual = graphqlify.query('getUsers', queryObject)
 
-    // just type check
+    expect(actual).toEqual(gql`
+      query getUsers {
+        users {
+          id
+          __typename
+        }
+      }
+    `)
+  })
+
+  it('render custom scalar property', () => {
+    interface CustomField {
+      id: number
+    }
+
+    const queryObject = {
+      users: {
+        id: types.number,
+        customField: types.custom<CustomField>(),
+      },
+    }
+    const actual = graphqlify.query('getUsers', queryObject)
+
+    // the following will cause error because `CustomField` needs `{ id: number }`
     // const a: typeof queryObject = {
     //   users: {
-    //     id: 1,
-    //     __typename: 'User',
-    //   },
+    //     id:1,
+    //     customField: {},
+    //   }
     // }
 
     expect(actual).toEqual(gql`
       query getUsers {
         users {
           id
-          __typename
+          customField
         }
       }
     `)
