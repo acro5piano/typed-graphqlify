@@ -297,14 +297,6 @@ describe('graphqlify', () => {
     }
     const actual = graphqlify.query('getUsers', queryObject)
 
-    // the following will cause error because `CustomField` needs `{ id: number }`
-    // const a: typeof queryObject = {
-    //   users: {
-    //     id:1,
-    //     customField: {},
-    //   }
-    // }
-
     expect(actual).toEqual(gql`
       query getUsers {
         users {
