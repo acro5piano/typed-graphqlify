@@ -1,4 +1,4 @@
-import { graphqlify, types, optional, alias } from '../index'
+import { graphqlify, types, optional, alias, on } from '../index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -332,6 +332,43 @@ describe('graphqlify', () => {
         user {
           id
           type
+        }
+      }
+    `)
+  })
+
+  it('render inline fragment', () => {
+    const queryObject = {
+      hero: {
+        id: types.number,
+        ...on('Droid', {
+          primaryFunction: types.string,
+        }),
+        ...on('Human', {
+          height: types.number,
+        }),
+      },
+    }
+
+    // const a: typeof queryObject = {
+    //   hero: {
+    //     id: 1,
+    //     height: 'geho',
+    //   },
+    // }
+
+    const actual = graphqlify.query('getHeroForEpisode', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getHeroForEpisode {
+        hero {
+          id
+          ... on Droid {
+            primaryFunction
+          }
+          ... on Human {
+            height
+          }
         }
       }
     `)
