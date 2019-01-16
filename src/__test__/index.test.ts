@@ -369,6 +369,8 @@ describe('graphqlify', () => {
           ... on Human {
             height
           }
+        }
+      }
     `)
   })
 
