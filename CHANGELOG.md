@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.6-alpha
+
+- add custom scalar property @luvies and @acro5piano
+
 ## 2.0.5-alpha
 
 - Support inline fragment by @acro5piano
