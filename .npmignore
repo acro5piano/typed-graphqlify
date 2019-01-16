@@ -2,6 +2,9 @@ src
 examples
 coverage
 docs
+*.png
+*.log
+jest.config.js
 tsconfig.json
 CONTRIBUTING.md
 ISSUE_TEMPLATE.md
