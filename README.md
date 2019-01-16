@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/acro5piano/typed-graphqlify.svg?style=svg)](https://circleci.com/gh/acro5piano/typed-graphqlify)
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
+[![codecov](https://codecov.io/gh/acro5piano/typed-graphqlify/branch/master/graph/badge.svg)](https://codecov.io/gh/acro5piano/typed-graphqlify)
 
 ![image](https://github.com/acro5piano/typed-graphqlify/blob/master/logo-fixed.png)
 
