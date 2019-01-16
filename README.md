@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/acro5piano/typed-graphqlify.svg?style=svg)](https://circleci.com/gh/acro5piano/typed-graphqlify)
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
+[![codecov](https://codecov.io/gh/acro5piano/typed-graphqlify/branch/master/graph/badge.svg)](https://codecov.io/gh/acro5piano/typed-graphqlify)
 
 ![image](https://github.com/acro5piano/typed-graphqlify/blob/master/logo-fixed.png)
 
@@ -183,7 +184,7 @@ graphqlify.query({
 Change the first argument of `graphqlify` to `mutation`.
 
 ```graphql
-mutation updateUser($input: UserInput!) {
+mutation updateUserMutation($input: UserInput!) {
   updateUser(input: $input) {
     id
     name
@@ -192,7 +193,7 @@ mutation updateUser($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify.mutation({
+graphqlify.mutation('updateUserMutation', {
   __params: { $input: 'UserInput!' },
   updateUser: {
     __params: { input: '$input' },

@@ -1,8 +1,12 @@
 # Changelog
 
-## 2.0.4-alpha
+## 2.0.5-alpha
 
 - Support inline fragment by @acro5piano
+
+## 2.0.4-alpha
+
+- Support for nested params added by @mlegenhausen
 
 ## 2.0.3-alpha
 

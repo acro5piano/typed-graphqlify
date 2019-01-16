@@ -218,10 +218,10 @@ describe('graphqlify', () => {
         id: types.number,
       },
     }
-    const actual = graphqlify.mutation('updateUser', queryObject)
+    const actual = graphqlify.mutation('updateUserMutation', queryObject)
 
     expect(actual).toEqual(gql`
-      mutation updateUser($name: String!) {
+      mutation updateUserMutation($name: String!) {
         updateUser(name: $name) {
           id
         }
@@ -369,6 +369,26 @@ describe('graphqlify', () => {
           ... on Human {
             height
           }
+    `)
+  })
+
+  it('render nested params', () => {
+    const queryObject = {
+      __params: { $param1: 'String!', $param2: 'Number' },
+      user: {
+        __params: { condition: { param1: '$param1', param2: '$param2' } },
+        id: types.number,
+        type: types.string,
+      },
+    }
+
+    const actual = graphqlify.query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser($param1: String!, $param2: Number) {
+        user(condition: { param1: $param1, param2: $param2 }) {
+          id
+          type
         }
       }
     `)
