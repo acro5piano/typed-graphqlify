@@ -1,4 +1,19 @@
-import { Fragment, FragmentMarker } from './types'
+export class Fragment<T> {
+  readonly typeName: string
+  readonly fields: T
+
+  constructor(typeName: string, fields: T) {
+    this.typeName = typeName
+    this.fields = fields
+  }
+
+  render() {
+    const joinedFields = joinFieldRecursively(this.fields)
+    return `... on ${this.typeName} { ${joinedFields} }` as any
+  }
+}
+
+export const FragmentMarker = '__fragment__on__'
 
 export const filterParams = (k: string) => k !== '__params'
 
