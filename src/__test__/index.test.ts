@@ -389,6 +389,62 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render nested inline fragment', () => {
+    const queryObject = {
+      hero: {
+        id: types.number,
+        ...on('Droid', {
+          internalData: {
+            memory: types.number,
+            parts: {
+              ...on('Cpu', {
+                instuctionSet: types.string,
+              }),
+              ...on('HDD', {
+                size: types.number,
+                diagnostics: {
+                  maxRpm: types.number,
+                },
+              }),
+            },
+          },
+        }),
+        ...on('Human', {
+          height: types.number,
+        }),
+      },
+    }
+
+    const actual = graphqlify.query('getHeroForEpisode', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getHeroForEpisode {
+        hero {
+          id
+          ... on Droid {
+            internalData {
+              memory
+              parts {
+                ... on Cpu {
+                  instuctionSet
+                }
+                ... on HDD {
+                  size
+                  diagnostics {
+                    maxRpm
+                  }
+                }
+              }
+            }
+          }
+          ... on Human {
+            height
+          }
+        }
+      }
+    `)
+  })
+
   it('render nested params', () => {
     const queryObject = {
       __params: { $param1: 'String!', $param2: 'Number' },
