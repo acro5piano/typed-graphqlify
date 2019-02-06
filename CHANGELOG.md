@@ -1,8 +1,16 @@
 # Changelog
 
+## 2.0.8-alpha
+
+- Bugfix: Nested fragment objects by @luvies
+
+## 2.0.7-alpha
+
+- Add npmignore files by @acro5piano
+
 ## 2.0.6-alpha
 
-- add custom scalar property @luvies and @acro5piano
+- Add custom scalar property by @luvies and @acro5piano
 
 ## 2.0.5-alpha
 
