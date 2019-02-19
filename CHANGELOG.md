@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.9-alpha
+
+- fix Using a scalar in an array outputs incorrect GraphQL @acro5piano and @luvies
+
 ## 2.0.8-alpha
 
 - Bugfix: Nested fragment objects by @luvies
