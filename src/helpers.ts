@@ -40,6 +40,12 @@ export const joinFieldRecursively = (fieldOrObject: any): string => {
         return `${joinFieldRecursively(fieldOrObject[0])}`
       }
       if (typeof fieldOrObject[key] === 'object') {
+        // We render scalar itself if it is in an array.
+        // e.g) emails: [types.string]
+        // For more details, please see https://github.com/acro5piano/typed-graphqlify/issues/42
+        if (Array.isArray(fieldOrObject[key]) && typeof fieldOrObject[key][0] !== 'object') {
+          return key
+        }
         return `${key} { ${joinFieldRecursively(fieldOrObject[key])} }`
       }
       return key
