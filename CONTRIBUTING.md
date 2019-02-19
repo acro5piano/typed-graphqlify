@@ -22,7 +22,6 @@ And run test to confirm that everything works as expected:
 yarn test
 ```
 
-
 ## Development process
 
 - Fork it
@@ -33,7 +32,12 @@ And then maintainer (currently only @acro5piano) will review your code. We might
 
 ## Release
 
-@acro5piano will create a relase on GitHub, and bump version then run `npm publish`.
+@acro5piano will create a relase on GitHub.
+
+- Edit `package.json` and bump version
+- Add summary to `Changelog.md`
+- Add new release on GitHub by tagging
+- `npm publish`
 
 ## Versioning & Development status
 
