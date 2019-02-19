@@ -466,4 +466,36 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render scalar in an array', () => {
+    const queryObject = {
+      user: {
+        emails: [types.string],
+        activity: {
+          logins: [types.number],
+        },
+        addresses: [
+          {
+            id: types.number,
+          },
+        ],
+      },
+    }
+
+    const actual = graphqlify.query('getUserDetails', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUserDetails {
+        user {
+          emails
+          activity {
+            logins
+          }
+          addresses {
+            id
+          }
+        }
+      }
+    `)
+  })
 })
