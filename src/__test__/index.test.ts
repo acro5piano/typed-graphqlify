@@ -365,13 +365,6 @@ describe('graphqlify', () => {
       },
     }
 
-    // const a: typeof queryObject = {
-    //   hero: {
-    //     id: 1,
-    //     height: 'geho',
-    //   },
-    // }
-
     const actual = graphqlify.query('getHeroForEpisode', queryObject)
 
     expect(actual).toEqual(gql`
