@@ -10,6 +10,7 @@ export enum GraphQLType {
  * The symbol to use to store the object GQL type
  */
 export const typeSymbol = Symbol('GraphQL Type')
+
 /**
  * The symbol to use to store the object parameters.
  */
