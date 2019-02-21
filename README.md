@@ -127,11 +127,26 @@ const result: typeof getUser = await executeGraphql(gqlString)
 
 # Features
 
-- Nested Query
-- Array Query
-- Input variables, parameters
-- Query and Mutation
-- Optional types
+Currently `typed-graphqlify` can convert these GraphQL formats:
+
+- Operations
+  - Query
+  - Mutation
+  - Subscription
+- Input (For not scalar, would be fixed in the next stable version)
+  - Variables
+  - Parameters
+- Data structure
+  - Nested object query
+  - Array query
+- Static type inference
+  - `number`
+  - `string`
+  - `boolean`
+  - Enum
+  - Constant
+  - Custom type
+  - Optional types, e.g.) `number | undefined`
 
 # Examples
 
@@ -181,7 +196,7 @@ graphqlify.query({
 
 ## Basic Mutation
 
-Change the first argument of `graphqlify` to `mutation`.
+Just use `graphqlify.mutation`.
 
 ```graphql
 mutation updateUserMutation($input: UserInput!) {
@@ -483,11 +498,6 @@ Imagine AWS management console:
 If you build something like that with GraphQL, you have to build GraphQL dynamically and programmatically.
 
 typed-graphqlify works for such cases without losing type information.
-
-# TODO
-
-- [x] Optional support
-- [x] Enum support
 
 # Contributing
 
