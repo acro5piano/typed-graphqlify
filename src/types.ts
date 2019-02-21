@@ -1,7 +1,5 @@
 import { typeSymbol, GraphQLType, GraphQLScalar, GraphQLInlineFragment } from './render'
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export function optional<T>(obj: T): T | undefined {
   return obj
 }
@@ -47,7 +45,12 @@ export class types {
     return scalarType()
   }
 
-  static optional: Omit<Partial<typeof types>, 'custom'> & {
+  static optional: {
+    number?: number
+    string?: string
+    boolean?: boolean
+    constant: <T extends string>(_c: T) => T | undefined
+    oneOf: <T extends {}>(_e: T) => (keyof T) | undefined
     custom: <T>() => T | undefined
   } = types
 }
