@@ -149,7 +149,8 @@ function renderType(name: string | undefined, value: unknown): string {
         return renderObject(name, value)
       }
     case 'undefined':
-      throw new Error('Cannot render undefined')
+      // Ignore undefined values.
+      return ''
     default:
       throw new Error(`Cannot render type ${typeof value}`)
   }
