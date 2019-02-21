@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.10-alpha
+
+- Refactor rendering GraphQL
+- Fix #41
+
+All by @luvies
+
 ## 2.0.9-alpha
 
 - fix Using a scalar in an array outputs incorrect GraphQL @acro5piano and @luvies
