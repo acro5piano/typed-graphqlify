@@ -1,32 +1,56 @@
-import { Fragment, FragmentMarker } from './helpers'
+import { typeSymbol, GraphQLType, GraphQLScalar, GraphQLInlineFragment } from './render'
 
 export function optional<T>(obj: T): T | undefined {
   return obj
 }
 
-export function on<T extends {}>(typeName: string, fields: T): Partial<T> {
-  const fragment = new Fragment(typeName, fields)
-  return { [`${FragmentMarker}${typeName}`]: fragment } as any
+export function on<T extends {}>(typeName: string, internal: T): Partial<T> {
+  const fragment: GraphQLInlineFragment = {
+    [typeSymbol]: GraphQLType.INLINE_FRAGMENT,
+    typeName,
+    internal,
+  }
+  return { [Symbol(`Fragment(${typeName})`)]: fragment } as any
 }
 
-function constant<T extends string>(c: T): T {
-  return c
-}
-
-function custom<T>(): T {
-  return '' as any
-}
-
-function oneOf<T extends {}>(e: T): keyof T {
-  return Object.keys(e)[0] as keyof T
+function scalarType(): any {
+  const scalar: GraphQLScalar = {
+    [typeSymbol]: GraphQLType.SCALAR,
+  }
+  return scalar
 }
 
 export class types {
-  static number: number = 0
-  static string: string = ''
-  static boolean: boolean = false
-  static optional: Partial<typeof types> = types
-  static constant = constant
-  static oneOf = oneOf
-  static custom = custom
+  static get number(): number {
+    return scalarType()
+  }
+
+  static get string(): string {
+    return scalarType()
+  }
+
+  static get boolean(): boolean {
+    return scalarType()
+  }
+
+  static constant<T extends string>(_c: T): T {
+    return scalarType()
+  }
+
+  static oneOf<T extends {}>(_e: T): keyof T {
+    return scalarType()
+  }
+
+  static custom<T>(): T {
+    return scalarType()
+  }
+
+  static optional: {
+    number?: number
+    string?: string
+    boolean?: boolean
+    constant: <T extends string>(_c: T) => T | undefined
+    oneOf: <T extends {}>(_e: T) => (keyof T) | undefined
+    custom: <T>() => T | undefined
+  } = types
 }

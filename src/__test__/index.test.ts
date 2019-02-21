@@ -365,13 +365,6 @@ describe('graphqlify', () => {
       },
     }
 
-    // const a: typeof queryObject = {
-    //   hero: {
-    //     id: 1,
-    //     height: 'geho',
-    //   },
-    // }
-
     const actual = graphqlify.query('getHeroForEpisode', queryObject)
 
     expect(actual).toEqual(gql`
@@ -497,5 +490,68 @@ describe('graphqlify', () => {
         }
       }
     `)
+  })
+
+  it('render all scalar types', () => {
+    enum TestEnum {
+      A = 'a',
+    }
+
+    const queryObject = {
+      user: {
+        num: types.number,
+        str: types.string,
+        bool: types.boolean,
+        const: types.constant('const'),
+        oneOf: types.oneOf(TestEnum),
+        custom: types.custom<{ a: string }>(),
+        undef: undefined,
+        optional: {
+          num: types.optional.number,
+          str: types.optional.string,
+          bool: types.optional.boolean,
+          const: types.optional.constant('const'),
+          oneOf: types.optional.oneOf(TestEnum),
+          custom: types.optional.custom<{ a: string }>(),
+        },
+      },
+    }
+
+    const actual = graphqlify.query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          num
+          str
+          bool
+          const
+          oneOf
+          custom
+          optional {
+            num
+            str
+            bool
+            const
+            oneOf
+            custom
+          }
+        }
+      }
+    `)
+  })
+
+  it('properly errors on invalid input', () => {
+    expect(() => (graphqlify.query as any)('EmptyQuery')).toThrow()
+    expect(() => graphqlify.query({})).toThrow()
+    expect(() => graphqlify.query('Empty', {})).toThrow()
+    expect(() => graphqlify.query('Empty', { hero: {} })).toThrow()
+    expect(() => graphqlify.query('Empty', { hero: [] })).toThrow()
+    expect(() => graphqlify.query('DirectTypes', { hero: { str: 'string' } })).toThrow()
+    expect(() => graphqlify.query('DirectTypes', { hero: { int: 4 } })).toThrow()
+    expect(() => graphqlify.query('DirectTypes', { hero: { float: 3.14 } })).toThrow()
+    expect(() => graphqlify.query('DirectTypes', { hero: { bool: true } })).toThrow()
+    expect(() => graphqlify.query('BadValue', { hero: { prop: null } })).toThrow()
+    expect(() => graphqlify.query('BadValue', { hero: { prop() {} } })).toThrow()
   })
 })
