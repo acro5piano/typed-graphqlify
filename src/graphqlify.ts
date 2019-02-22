@@ -28,3 +28,10 @@ export const graphqlify = {
 export function alias<T extends string>(alias: T, target: string): T {
   return `${alias}:${target}` as T
 }
+
+/**
+ * prevent `String` param being rendered as enum
+ */
+export function rawString(input: string) {
+  return JSON.stringify(input)
+}
