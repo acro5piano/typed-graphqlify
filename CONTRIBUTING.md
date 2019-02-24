@@ -36,6 +36,7 @@ And then maintainer (currently only @acro5piano) will review your code. We might
 
 - Edit `package.json` and bump version
 - Add summary to `Changelog.md`
+- Push it to master
 - Add new release on GitHub by tagging
 - `npm publish`
 

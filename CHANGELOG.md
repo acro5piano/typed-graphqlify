@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.11-alpha
+
+- Add rawString helper function by @Zzzen
+
 ## 2.0.10-alpha
 
 - Refactor rendering GraphQL

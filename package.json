@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "2.0.10-alpha",
+  "version": "2.0.11-alpha",
   "description": "JavaScript class that render GraphQL. Better TypeScript + GraphQL experience.",
   "keywords": [
     "graphql",
@@ -45,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run format"
+      "pre-commit": "npm run lint && npm run format && git add ."
     }
   }
 }

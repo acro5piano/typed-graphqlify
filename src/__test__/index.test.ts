@@ -331,8 +331,8 @@ describe('graphqlify', () => {
   it('render raw string parameters', () => {
     const queryObject = {
       user: {
-          __params: { remark: rawString('"hello"') },
-          id: types.number,
+        __params: { remark: rawString('"hello"') },
+        id: types.number,
       },
     }
     const actual = graphqlify.query('getUser', queryObject)
