@@ -146,6 +146,8 @@ Currently `typed-graphqlify` can convert these GraphQL features:
   - Constant
   - Custom type
   - Optional types, e.g.) `number | undefined`
+- Fragments
+- Inline Fragments
 
 # Examples
 
@@ -407,6 +409,57 @@ graphqlify.query('getMaleUser', {
     id: types.number,
     name: types.string,
   },
+}
+```
+
+## Standard fragments
+Use the `fragment` helper to create them, and spread the result into places the fragment is used.
+
+```graphql
+query {
+  user(id: 1) {
+    ...userFragment
+  }
+  maleUsers: users(sex: MALE) {
+    ...userFragment
+  }
+}
+
+fragment userFragment on User {
+  id
+  name
+  bankAccount {
+    ...bankAccountFragment
+  }
+}
+
+fragment bankAccountFragment on BankAccount {
+  id
+  branch
+}
+```
+
+```typescript
+const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
+  id: types.number,
+  branch: types.string,
+})
+
+const userFragment = fragment('userFragment', 'User', {
+  id: types.number,
+  name: types.string,
+  bankAccount: {
+    ...bankAccountFragment,
+  },
+})
+
+graphqlify.query({
+  user: params({ id: 1 }, {
+    ...userFragment,
+  }),
+  [alias('maleUsers', 'users')]: params({ sex: 'MALE' }, {
+    ...userFragment,
+  }),
 }
 ```
 
