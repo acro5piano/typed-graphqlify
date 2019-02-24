@@ -1,4 +1,4 @@
-import { graphqlify, types, optional, alias, on } from '../index'
+import { graphqlify, types, optional, alias, on, rawString } from '../index'
 import { gql } from './test-utils'
 
 describe('graphqlify', () => {
@@ -322,6 +322,24 @@ describe('graphqlify', () => {
     expect(actual).toEqual(gql`
       query getUsers($status: String!) {
         users(status: $status) {
+          id
+        }
+      }
+    `)
+  })
+
+  it('render raw string parameters', () => {
+    const queryObject = {
+      user: {
+          __params: { remark: rawString('"hello"') },
+          id: types.number,
+      },
+    }
+    const actual = graphqlify.query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user(remark: "\\"hello\\"") {
           id
         }
       }
