@@ -1,4 +1,4 @@
-import { render, Params, paramsSymbol } from './render'
+import { GraphQLFragment, GraphQLType, Params, paramsSymbol, render, typeSymbol } from './render'
 
 interface QueryObject {
   [x: string]: any
@@ -39,6 +39,17 @@ export function params<T>(params: Params, input: T): T {
 
 export function alias<T extends string>(alias: T, target: string): T {
   return `${alias}:${target}` as T
+}
+
+export function fragment<T>(name: string, typeName: string, input: T): T {
+  const fragment: GraphQLFragment = {
+    [typeSymbol]: GraphQLType.FRAGMENT,
+    name,
+    typeName,
+    internal: input,
+  }
+
+  return { [Symbol(`Fragment(${name} on ${typeName})`)]: fragment } as any
 }
 
 /**

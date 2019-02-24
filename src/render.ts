@@ -4,6 +4,7 @@
 export enum GraphQLType {
   SCALAR,
   INLINE_FRAGMENT,
+  FRAGMENT,
 }
 
 /**
@@ -35,11 +36,32 @@ export interface GraphQLInlineFragment {
 /**
  * Checks whether an object is a fragment object.
  */
-function isFragmentObject(value: unknown): value is GraphQLInlineFragment {
+function isInlineFragmentObject(value: unknown): value is GraphQLInlineFragment {
   return (
     typeof value === 'object' &&
     value !== null &&
     (value as any)[typeSymbol] === GraphQLType.INLINE_FRAGMENT
+  )
+}
+
+/**
+ * A GQL fragment.
+ */
+export interface GraphQLFragment {
+  [typeSymbol]: GraphQLType.FRAGMENT
+  name: string
+  typeName: string
+  internal: Record<string, unknown>
+}
+
+/**
+ * Checks whether an object is a fragment object.
+ */
+function isFragmentObject(value: unknown): value is GraphQLFragment {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    (value as any)[typeSymbol] === GraphQLType.FRAGMENT
   )
 }
 
@@ -59,6 +81,13 @@ function isScalarObject(value: unknown): value is GraphQLScalar {
   return (
     typeof value === 'object' && value !== null && (value as any)[typeSymbol] === GraphQLType.SCALAR
   )
+}
+
+/**
+ * Provides the context for the current render.
+ */
+interface RenderContext {
+  fragments: Map<symbol, GraphQLFragment>
 }
 
 /**
@@ -106,14 +135,25 @@ function renderScalar(name: string | undefined, params?: Params): string {
 /**
  * Renders a GQL inline fragment.
  */
-function renderInlineFragment(fragement: GraphQLInlineFragment): string {
-  return `...on ${fragement.typeName}${render(fragement.internal)}`
+function renderInlineFragment(fragment: GraphQLInlineFragment, context: RenderContext): string {
+  return `...on ${fragment.typeName}${renderObject(undefined, fragment.internal, context)}`
+}
+
+/**
+ * Renders a GQL fragment.
+ */
+function renderFragment(fragment: GraphQLFragment, context: RenderContext): string {
+  return `fragment ${fragment.name} on ${fragment.typeName}${renderObject(
+    undefined,
+    fragment.internal,
+    context,
+  )}`
 }
 
 /**
  * Renders a GQL array.
  */
-function renderArray(name: string | undefined, arr: unknown[]): string {
+function renderArray(name: string | undefined, arr: unknown[], context: RenderContext): string {
   // Get first item.
   const first = arr[0]
 
@@ -126,13 +166,13 @@ function renderArray(name: string | undefined, arr: unknown[]): string {
   ;(first as any)[paramsSymbol] = (arr as any)[paramsSymbol]
 
   // Render type normally.
-  return renderType(name, first)
+  return renderType(name, first, context)
 }
 
 /**
  * Renders the given value into its given GQL.
  */
-function renderType(name: string | undefined, value: unknown): string {
+function renderType(name: string | undefined, value: unknown, context: RenderContext): string {
   switch (typeof value) {
     case 'bigint':
     case 'boolean':
@@ -147,9 +187,9 @@ function renderType(name: string | undefined, value: unknown): string {
       if (isScalarObject(value)) {
         return `${renderScalar(name, value[paramsSymbol])} `
       } else if (Array.isArray(value)) {
-        return renderArray(name, value)
+        return renderArray(name, value, context)
       } else {
-        return renderObject(name, value)
+        return renderObject(name, value, context)
       }
     case 'undefined':
       // Ignore undefined values.
@@ -162,19 +202,22 @@ function renderType(name: string | undefined, value: unknown): string {
 /**
  * Renders a object to GQL.
  */
-function renderObject(name: string | undefined, obj: object): string {
+function renderObject(name: string | undefined, obj: object, context: RenderContext): string {
   const fields: string[] = []
 
   // Iterate normal properties and render them accordingly.
   for (const [key, value] of Object.entries(obj)) {
-    fields.push(renderType(key, value))
+    fields.push(renderType(key, value, context))
   }
 
-  // Search for fragment symbols and render them.
+  // Search for fragment & inline fragment symbols and render them.
   for (const sym of Object.getOwnPropertySymbols(obj)) {
     const value = (obj as any)[sym]
-    if (isFragmentObject(value)) {
-      fields.push(renderInlineFragment(value))
+    if (isInlineFragmentObject(value)) {
+      fields.push(renderInlineFragment(value, context))
+    } else if (isFragmentObject(value)) {
+      context.fragments.set(sym, value)
+      fields.push(`...${value.name}`)
     }
   }
 
@@ -191,5 +234,37 @@ function renderObject(name: string | undefined, obj: object): string {
  * Performs a complete render of a given object.
  */
 export function render(value: Record<string, unknown>): string {
-  return renderObject(undefined, value)
+  // Construct main render context.
+  const context: RenderContext = {
+    fragments: new Map(),
+  }
+
+  // Render main body.
+  let rend = renderObject(undefined, value, context)
+
+  // Render the fragments defined in each context until we have no more to render.
+  const rendered = new Map<symbol, string>()
+  let executingContext = context // The context we're currently executing over.
+  let currentContext: RenderContext = {
+    // The current context for execution.
+    fragments: new Map(),
+  }
+  while (executingContext.fragments.size > 0) {
+    // Use Array.from due to ES5 target without downLevelIteration enabled.
+    for (const [sym, fragment] of Array.from(executingContext.fragments.entries())) {
+      // We only need to render the fragment once, even if it's used multiple times.
+      if (!rendered.has(sym)) {
+        rendered.set(sym, renderFragment(fragment, currentContext))
+      }
+    }
+
+    // Set the next context to execute to the one we just used.
+    executingContext = currentContext
+    currentContext = {
+      // Reset current context.
+      fragments: new Map(),
+    }
+  }
+
+  return rend + Array.from(rendered.values()).join('')
 }
