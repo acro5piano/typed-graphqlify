@@ -65,17 +65,20 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types, params } from 'typed-graphqlify'
+import { query, types, params } from 'typed-graphqlify'
 
 const getUserQuery = {
-  user: params({ id: 1 }, {
-    id: types.number,
-    name: types.string,
-    bankAccount: {
+  user: params(
+    { id: 1 },
+    {
       id: types.number,
-      branch: types.optional.string,
+      name: types.string,
+      bankAccount: {
+        id: types.number,
+        branch: types.optional.string,
+      },
     },
-  }),
+  ),
 }
 ```
 
@@ -84,7 +87,7 @@ Note that we use our `types` helper to define types in the result, and the `para
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-const gqlString = graphqlify.query('getUser', getUserQuery)
+const gqlString = query('getUser', getUserQuery)
 
 console.log(gqlString)
 // =>
@@ -164,7 +167,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query('getUser', {
+query('getUser', {
   user: {
     id: types.number,
     name: types.string,
@@ -186,7 +189,7 @@ query {
 ```
 
 ```typescript
-graphqlify.query({
+query({
   user: {
     id: types.number,
     name: types.string,
@@ -197,7 +200,7 @@ graphqlify.query({
 
 ## Basic Mutation
 
-Just use `graphqlify.mutation`.
+Just use `mutation`.
 
 ```graphql
 mutation updateUserMutation($input: UserInput!) {
@@ -209,7 +212,7 @@ mutation updateUserMutation($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify.mutation('updateUserMutation', params({ $input: 'UserInput!' }, {
+mutation('updateUserMutation', params({ $input: 'UserInput!' }, {
   updateUser: params({ input: '$input' }, {
     id: types.number,
     name: types.string,
@@ -243,7 +246,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query('getUser', {
+query('getUser', {
   user: {
     id: types.number,
     name: types.string,
@@ -277,7 +280,7 @@ query getUsers {
 ```
 
 ```typescript
-graphqlify.query('users', {
+query('users', {
   users: params({ status: 'active' }, [
     {
       id: types.number,
@@ -294,7 +297,7 @@ Add `types.optional` or `optional` helper method to define optional field.
 ```typescript
 import { types, optional } from 'typed-graphqlify'
 
-graphqlify.query('getUser', {
+query('getUser', {
   user: {
     id: types.number,
     name: types.optional.string, // <-- user.name is `string | undefined`
@@ -320,7 +323,7 @@ query getUser {
 ```
 
 ```typescript
-graphqlify.query('getUser', {
+query('getUser', {
   user: {
     id: types.number,
     name: types.string,
@@ -349,7 +352,7 @@ enum UserType {
   'Teacher',
 }
 
-graphqlify.query('getUser', {
+query('getUser', {
   user: {
     id: types.number,
     name: types.string,
@@ -378,7 +381,7 @@ query getFatherAndMother {
 ```
 
 ```typescript
-graphqlify.query('getFatherAndMother', {
+query('getFatherAndMother', {
   father: {
     id: types.number,
     name: types.string,
@@ -404,7 +407,7 @@ query getMaleUser {
 ```
 
 ```typescript
-graphqlify.query('getMaleUser', {
+query('getMaleUser', {
   [alias('maleUser', 'user')]: {
     id: types.number,
     name: types.string,
@@ -413,6 +416,7 @@ graphqlify.query('getMaleUser', {
 ```
 
 ## Standard fragments
+
 Use the `fragment` helper to create them, and spread the result into places the fragment is used.
 
 ```graphql
@@ -453,7 +457,7 @@ const userFragment = fragment('userFragment', 'User', {
   },
 })
 
-graphqlify.query({
+query({
   user: params({ id: 1 }, {
     ...userFragment,
   }),
@@ -482,7 +486,7 @@ query getHeroForEpisode {
 ```
 
 ```typescript
-graphqlify.query('getHeroForEpisode', {
+query('getHeroForEpisode', {
   hero: {
     id: types.number,
     ...on('Droid', {

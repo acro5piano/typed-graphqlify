@@ -1,4 +1,4 @@
-import { graphqlify, types, optional, alias, on, rawString } from '../index'
+import { query, mutation, subscription, types, optional, alias, on, rawString } from '../index'
 import { gql } from './test-utils'
 import { params, fragment } from '../graphqlify'
 
@@ -18,7 +18,7 @@ describe('graphqlify', () => {
       ),
     }
 
-    const actual = graphqlify.query(queryObject)
+    const actual = query(queryObject)
 
     expect(actual).toEqual(gql`
       query {
@@ -49,7 +49,7 @@ describe('graphqlify', () => {
       ),
     }
 
-    const actual = graphqlify.query(queryObject)
+    const actual = query(queryObject)
 
     expect(actual).toEqual(gql`
       query {
@@ -80,7 +80,7 @@ describe('graphqlify', () => {
       ),
     }
 
-    const actual = graphqlify.query('user', queryObject)
+    const actual = query('user', queryObject)
 
     expect(actual).toEqual(gql`
       query user {
@@ -101,7 +101,7 @@ describe('graphqlify', () => {
       userName: params({ id: 1 }, types.string),
     }
 
-    const actual = graphqlify.query(queryObject)
+    const actual = query(queryObject)
 
     expect(actual).toEqual(gql`
       query {
@@ -116,7 +116,7 @@ describe('graphqlify', () => {
         id: types.number,
       },
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -139,7 +139,7 @@ describe('graphqlify', () => {
         },
       },
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -166,7 +166,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -195,7 +195,7 @@ describe('graphqlify', () => {
         },
       ),
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -227,7 +227,7 @@ describe('graphqlify', () => {
         ),
       },
     )
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser($id: Int!) {
@@ -253,7 +253,7 @@ describe('graphqlify', () => {
         ),
       },
     )
-    const actual = graphqlify.mutation('updateUserMutation', queryObject)
+    const actual = mutation('updateUserMutation', queryObject)
 
     expect(actual).toEqual(gql`
       mutation updateUserMutation($name: String!) {
@@ -270,7 +270,7 @@ describe('graphqlify', () => {
         id: types.optional.number,
       }),
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -289,7 +289,7 @@ describe('graphqlify', () => {
         },
       ],
     }
-    const actual = graphqlify.query('getUsers', queryObject)
+    const actual = query('getUsers', queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers {
@@ -307,7 +307,7 @@ describe('graphqlify', () => {
         __typename: types.constant('User'),
       },
     }
-    const actual = graphqlify.query('getUsers', queryObject)
+    const actual = query('getUsers', queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers {
@@ -330,7 +330,7 @@ describe('graphqlify', () => {
         customField: types.custom<CustomField>(),
       },
     }
-    const actual = graphqlify.query('getUsers', queryObject)
+    const actual = query('getUsers', queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers {
@@ -353,7 +353,7 @@ describe('graphqlify', () => {
         ]),
       },
     )
-    const actual = graphqlify.query('getUsers', queryObject)
+    const actual = query('getUsers', queryObject)
 
     expect(actual).toEqual(gql`
       query getUsers($status: String!) {
@@ -373,7 +373,7 @@ describe('graphqlify', () => {
         },
       ),
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -396,7 +396,7 @@ describe('graphqlify', () => {
         type: types.oneOf(UserType),
       },
     }
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -421,7 +421,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify.query('getHeroForEpisode', queryObject)
+    const actual = query('getHeroForEpisode', queryObject)
 
     expect(actual).toEqual(gql`
       query getHeroForEpisode {
@@ -464,7 +464,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify.query('getHeroForEpisode', queryObject)
+    const actual = query('getHeroForEpisode', queryObject)
 
     expect(actual).toEqual(gql`
       query getHeroForEpisode {
@@ -508,7 +508,7 @@ describe('graphqlify', () => {
       },
     )
 
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser($param1: String!, $param2: Number) {
@@ -535,7 +535,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify.query('getUserDetails', queryObject)
+    const actual = query('getUserDetails', queryObject)
 
     expect(actual).toEqual(gql`
       query getUserDetails {
@@ -577,7 +577,7 @@ describe('graphqlify', () => {
       },
     }
 
-    const actual = graphqlify.query('getUser', queryObject)
+    const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
       query getUser {
@@ -631,7 +631,7 @@ describe('graphqlify', () => {
       ),
     }
 
-    const actual = graphqlify.query(queryObject)
+    const actual = query(queryObject)
 
     expect(actual).toEqual(gql`
       query {
@@ -658,17 +658,17 @@ describe('graphqlify', () => {
   })
 
   it('properly errors on invalid input', () => {
-    expect(() => (graphqlify.query as any)('EmptyQuery')).toThrow()
-    expect(() => graphqlify.query({})).toThrow()
-    expect(() => graphqlify.query('Empty', {})).toThrow()
-    expect(() => graphqlify.query('Empty', { hero: {} })).toThrow()
-    expect(() => graphqlify.query('Empty', { hero: [] })).toThrow()
-    expect(() => graphqlify.query('DirectTypes', { hero: { str: 'string' } })).toThrow()
-    expect(() => graphqlify.query('DirectTypes', { hero: { int: 4 } })).toThrow()
-    expect(() => graphqlify.query('DirectTypes', { hero: { float: 3.14 } })).toThrow()
-    expect(() => graphqlify.query('DirectTypes', { hero: { bool: true } })).toThrow()
-    expect(() => graphqlify.query('BadValue', { hero: { prop: null } })).toThrow()
-    expect(() => graphqlify.query('BadValue', { hero: { prop() {} } })).toThrow()
+    expect(() => (query as any)('EmptyQuery')).toThrow()
+    expect(() => query({})).toThrow()
+    expect(() => query('Empty', {})).toThrow()
+    expect(() => query('Empty', { hero: {} })).toThrow()
+    expect(() => query('Empty', { hero: [] })).toThrow()
+    expect(() => query('DirectTypes', { hero: { str: 'string' } })).toThrow()
+    expect(() => query('DirectTypes', { hero: { int: 4 } })).toThrow()
+    expect(() => query('DirectTypes', { hero: { float: 3.14 } })).toThrow()
+    expect(() => query('DirectTypes', { hero: { bool: true } })).toThrow()
+    expect(() => query('BadValue', { hero: { prop: null } })).toThrow()
+    expect(() => query('BadValue', { hero: { prop() {} } })).toThrow()
     expect(() => params('str' as any, {})).toThrow()
     expect(() => params({}, 'str' as any)).toThrow()
   })

@@ -34,5 +34,5 @@
       "app/*": ["./src/*"]
     }
   },
-  "include": ["./src/*"]
+  "include": ["./src/**/*"]
 }

@@ -1,2 +1,2 @@
-export { graphqlify, alias, rawString } from './graphqlify'
+export { query, mutation, subscription, alias, rawString } from './graphqlify'
 export { types, optional, on } from './types'

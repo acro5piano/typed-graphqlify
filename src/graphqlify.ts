@@ -19,11 +19,9 @@ function createOperate(operateType: string) {
   return operate
 }
 
-export const graphqlify = {
-  query: createOperate('query'),
-  mutation: createOperate('mutation'),
-  subscription: createOperate('subscription'),
-}
+export const query = createOperate('query')
+export const mutation = createOperate('mutation')
+export const subscription = createOperate('subscription')
 
 export function params<T>(params: Params, input: T): T {
   if (typeof params !== 'object') {
