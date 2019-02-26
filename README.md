@@ -65,7 +65,7 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { query, types, params } from 'typed-graphqlify'
+import { types, params } from 'typed-graphqlify'
 
 const getUserQuery = {
   user: params(
@@ -87,6 +87,8 @@ Note that we use our `types` helper to define types in the result, and the `para
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
+import { query } from 'typed-graphqlify'
+
 const gqlString = query('getUser', getUserQuery)
 
 console.log(gqlString)
@@ -167,6 +169,8 @@ query getUser {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 query('getUser', {
   user: {
     id: types.number,
@@ -189,6 +193,8 @@ query {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 query({
   user: {
     id: types.number,
@@ -212,6 +218,8 @@ mutation updateUserMutation($input: UserInput!) {
 ```
 
 ```typescript
+import { mutation, params } from 'typed-graphqlify'
+
 mutation('updateUserMutation', params({ $input: 'UserInput!' }, {
   updateUser: params({ input: '$input' }, {
     id: types.number,
@@ -246,6 +254,8 @@ query getUser {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 query('getUser', {
   user: {
     id: types.number,
@@ -280,6 +290,8 @@ query getUsers {
 ```
 
 ```typescript
+import { query, types, params } from 'typed-graphqlify'
+
 query('users', {
   users: params({ status: 'active' }, [
     {
@@ -295,7 +307,7 @@ query('users', {
 Add `types.optional` or `optional` helper method to define optional field.
 
 ```typescript
-import { types, optional } from 'typed-graphqlify'
+import { query, types, optional } from 'typed-graphqlify'
 
 query('getUser', {
   user: {
@@ -323,6 +335,8 @@ query getUser {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 query('getUser', {
   user: {
     id: types.number,
@@ -347,6 +361,8 @@ query getUser {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 enum UserType {
   'Student',
   'Teacher',
@@ -381,6 +397,8 @@ query getFatherAndMother {
 ```
 
 ```typescript
+import { query, types } from 'typed-graphqlify'
+
 query('getFatherAndMother', {
   father: {
     id: types.number,
@@ -407,6 +425,8 @@ query getMaleUser {
 ```
 
 ```typescript
+import { query, alias, types } from 'typed-graphqlify'
+
 query('getMaleUser', {
   [alias('maleUser', 'user')]: {
     id: types.number,
@@ -444,6 +464,8 @@ fragment bankAccountFragment on BankAccount {
 ```
 
 ```typescript
+import { query, fragment, alias, params } from 'typed-graphqlify'
+
 const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
   id: types.number,
   branch: types.string,
@@ -486,6 +508,8 @@ query getHeroForEpisode {
 ```
 
 ```typescript
+import { query, types, on } from 'typed-graphqlify'
+
 query('getHeroForEpisode', {
   hero: {
     id: types.number,
