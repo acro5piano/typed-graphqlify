@@ -1,4 +1,4 @@
-import { render } from './render'
+import { render, Params, paramsSymbol } from './render'
 
 interface QueryObject {
   [x: string]: any
@@ -23,6 +23,18 @@ export const graphqlify = {
   query: createOperate('query'),
   mutation: createOperate('mutation'),
   subscription: createOperate('subscription'),
+}
+
+export function params<T>(params: Params, input: T): T {
+  if (typeof params !== 'object') {
+    throw new Error('Params have to be an object')
+  }
+  if (typeof input !== 'object') {
+    throw new Error(`Cannot apply params to JS ${typeof params}`)
+  }
+
+  ;(input as any)[paramsSymbol] = params
+  return input
 }
 
 export function alias<T extends string>(alias: T, target: string): T {

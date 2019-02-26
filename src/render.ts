@@ -20,7 +20,7 @@ export const paramsSymbol = Symbol('GraphQL Params')
  * The parameters type.
  */
 export interface Params {
-  [key: string]: string | Params
+  [key: string]: string | boolean | number | Params
 }
 
 /**
@@ -122,6 +122,9 @@ function renderArray(name: string | undefined, arr: unknown[]): string {
     throw new Error('Cannot render array with no first value')
   }
 
+  // Move params onto rendered item.
+  ;(first as any)[paramsSymbol] = (arr as any)[paramsSymbol]
+
   // Render type normally.
   return renderType(name, first)
 }
@@ -164,10 +167,6 @@ function renderObject(name: string | undefined, obj: object): string {
 
   // Iterate normal properties and render them accordingly.
   for (const [key, value] of Object.entries(obj)) {
-    // __params is a special case currently.
-    if (key === '__params') {
-      continue
-    }
     fields.push(renderType(key, value))
   }
 
@@ -184,8 +183,8 @@ function renderObject(name: string | undefined, obj: object): string {
     throw new Error('Object cannot have no fields')
   }
 
-  // Render function object. (& handle params)
-  return `${renderName(name)}${renderParams((obj as any).__params)}{${fields.join('').trim()}}`
+  // Render function object.
+  return `${renderName(name)}${renderParams((obj as any)[paramsSymbol])}{${fields.join('').trim()}}`
 }
 
 /**

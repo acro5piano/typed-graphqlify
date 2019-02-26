@@ -2,11 +2,11 @@
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
 [![codecov](https://codecov.io/gh/acro5piano/typed-graphqlify/branch/master/graph/badge.svg)](https://codecov.io/gh/acro5piano/typed-graphqlify)
 
-![image](https://github.com/acro5piano/typed-graphqlify/blob/master/logo-fixed.png)
+![image](images/logo-fixed.png)
 
 # typed-graphqlify
 
-Build Typed GraphQL Query in TypeScript. Better TypeScript + GraphQL experience.
+Build Typed GraphQL Queries in TypeScript. A better TypeScript + GraphQL experience.
 
 # Install
 
@@ -22,9 +22,9 @@ yarn add typed-graphqlify
 
 # Motivation
 
-We all know that GraphQL is so great and solves many problems that we have with REST API, like overfetching and underfetching. But developing a GraphQL Client in TypeScript is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
+We all know that GraphQL is so great and solves many problems that we have with REST APIs, like overfetching and underfetching. But developing a GraphQL Client in TypeScript is sometimes a bit of pain. Why? Let's take a look at the example we usually have to make.
 
-When we use GraphQL library such as Apollo, We have to define query and its interface like this:
+When we use GraphQL library such as Apollo, We have to define a query and its interface like this:
 
 ```typescript
 interface GetUserQueryData {
@@ -58,29 +58,28 @@ This is so painful.
 
 The biggest problem is the redundancy in our codebase, which makes it difficult to keep things in sync. To add a new field to our entity, we have to care about both GraphQL and TypeScript interface. And type checking does not work if we do something wrong.
 
-**typed-graphqlify** comes to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class. Additional features including graphql-tag, or Fragment can be implemented by other tools like Apollo.
+**typed-graphqlify** comes in to address this issues, based on experience from over a dozen months of developing with GraphQL APIs in TypeScript. The main idea is to have only one source of truth by defining the schema using GraphQL-like object and a bit of helper class. Additional features including graphql-tag, or Fragment can be implemented by other tools like Apollo.
 
 # How to use
 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { graphqlify, types } from 'typed-graphqlify'
+import { graphqlify, types, params } from 'typed-graphqlify'
 
 const getUserQuery = {
-  user: {
-    __params: { id: 1 },
+  user: params({ id: 1 }, {
     id: types.number,
     name: types.string,
     bankAccount: {
       id: types.number,
       branch: types.optional.string,
     },
-  },
+  }),
 }
 ```
 
-Note that we use our `types` helper to define types in the result.
+Note that we use our `types` helper to define types in the result, and the `params` helper to define the parameters.
 
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
@@ -123,23 +122,23 @@ const result: typeof getUser = await executeGraphql(gqlString)
 // }
 ```
 
-![image](https://github.com/acro5piano/typed-graphqlify/blob/master/screenshot.jpg)
+![image](images/screenshot.jpg)
 
 # Features
 
-Currently `typed-graphqlify` can convert these GraphQL formats:
+Currently `typed-graphqlify` can convert these GraphQL features:
 
 - Operations
   - Query
   - Mutation
   - Subscription
-- Input (For not scalar, would be fixed in the next stable version)
+- Inputs
   - Variables
   - Parameters
-- Data structure
+- Data structures
   - Nested object query
   - Array query
-- Static type inference
+- Scalar types
   - `number`
   - `string`
   - `boolean`
@@ -208,19 +207,17 @@ mutation updateUserMutation($input: UserInput!) {
 ```
 
 ```typescript
-graphqlify.mutation('updateUserMutation', {
-  __params: { $input: 'UserInput!' },
-  updateUser: {
-    __params: { input: '$input' },
+graphqlify.mutation('updateUserMutation', params({ $input: 'UserInput!' }, {
+  updateUser: params({ input: '$input' }, {
     id: types.number,
     name: types.string,
-  },
+  }),
 })
 ```
 
 ## Nested Query
 
-Write nested object just like GraphQL.
+Write nested objects just like GraphQL.
 
 ```graphql
 query getUser {
@@ -266,7 +263,7 @@ graphqlify.query('getUser', {
 
 ## Array Field
 
-Just add array to your query. This does not change the result of compile, but TypeScript can aware the field is array.
+Just add array to your query. This does not change the result, but TypeScript will be aware the field is an array.
 
 ```graphql
 query getUsers {
@@ -279,13 +276,12 @@ query getUsers {
 
 ```typescript
 graphqlify.query('users', {
-  users: [
+  users: params({ status: 'active' }, [
     {
-      __params: { status: 'active' },
       id: types.number,
       name: types.string,
     },
-  ],
+  ]),
 })
 ```
 
@@ -394,7 +390,7 @@ graphqlify.query('getFatherAndMother', {
 
 ## Query Alias
 
-Query Alias is implemented in dynamic property.
+Query alias is implemented via a dynamic property.
 
 ```graphql
 query getMaleUser {
@@ -454,13 +450,13 @@ There are some GraphQL -> TypeScript convertion tools. The most famous one is Ap
 
 https://github.com/apollographql/apollo-tooling#apollo-clientcodegen-output
 
-In this section, we would like to explain why `typed-graphqlify` comes.
+In this section, we will go over why `typed-graphqlify` is a good alternative.
 
-Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't disrespect Apollo codegen.
+Disclaimer: I am not a heavy user of Apollo codegen, so the following points could be wrong. And I totally don't mean disrespect Apollo codegen.
 
 ## Simplicity
 
-Apollo codegen is a great tool. In addition to generating query interfaces, it does a lot of tasks including downloading schema, schema validation, fragment spreading, etc.
+Apollo codegen is a great tool. In addition to generating query interfaces, it does a lot of tasks including downloading schemas, schema validation, fragment spreading, etc.
 
 However, great usability is the tradeoff of complexity.
 
@@ -469,18 +465,18 @@ There are some issues to generate interfaces with Apollo codegen.
 - https://github.com/apollographql/apollo-tooling/issues/791
 - https://github.com/apollographql/apollo-tooling/issues/678
 
-I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too large to find out what is the problem.
+I (and maybe everyone) don't know the exact reasons, but Apollo's codebase is too large to find out what the problem is.
 
-On the other hand, `typed-graphqlify` is as simple as possible tool by design, and the logic is quite easy. So I think if some issues happen we can fix them easily.
+On the other hand, `typed-graphqlify` is as simple as possible by design, and the logic is quite easy. If some issues happen, we can fix them easily.
 
-## Multiple Queres problem
+## Multiple Schemas problem
 
 Currently Apollo codegen cannot handle multiple schemas.
 
 - https://github.com/apollographql/apollo-tooling/issues/588
 - https://github.com/apollographql/apollo-tooling/issues/554
 
-Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is taken?
+Although I know this is a kind of edge case, but if we have the same type name on different schemas, which schema is used?
 
 ## typed-graphqlify works even without schema
 
