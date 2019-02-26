@@ -1,6 +1,6 @@
 import { graphqlify, types, optional, alias, on, rawString } from '../index'
 import { gql } from './test-utils'
-import { params } from '../graphqlify'
+import { params, fragment } from '../graphqlify'
 
 describe('graphqlify', () => {
   it('render GraphQL', () => {
@@ -597,6 +597,62 @@ describe('graphqlify', () => {
             custom
           }
         }
+      }
+    `)
+  })
+
+  it('render fragments', () => {
+    const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
+      id: types.number,
+      branch: types.string,
+    })
+
+    const userFragment = fragment('userFragment', 'User', {
+      id: types.number,
+      bankAccount: {
+        ...bankAccountFragment,
+      },
+    })
+
+    const queryObject = {
+      user: params(
+        { id: 1 },
+        {
+          ...userFragment,
+          name: types.string,
+        },
+      ),
+      [alias('maleUsers', 'users')]: params(
+        { sex: 'MALE' },
+        {
+          name: types.string,
+          ...userFragment,
+        },
+      ),
+    }
+
+    const actual = graphqlify.query(queryObject)
+
+    expect(actual).toEqual(gql`
+      query {
+        user(id: 1) {
+          name
+          ...userFragment
+        }
+        maleUsers: users(sex: MALE) {
+          name
+          ...userFragment
+        }
+      }
+      fragment userFragment on User {
+        id
+        bankAccount {
+          ...bankAccountFragment
+        }
+      }
+      fragment bankAccountFragment on BankAccount {
+        id
+        branch
       }
     `)
   })

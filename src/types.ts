@@ -10,7 +10,7 @@ export function on<T extends {}>(typeName: string, internal: T): Partial<T> {
     typeName,
     internal,
   }
-  return { [Symbol(`Fragment(${typeName})`)]: fragment } as any
+  return { [Symbol(`InlineFragment(${typeName})`)]: fragment } as any
 }
 
 function scalarType(): any {
