@@ -65,7 +65,7 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 First, define GraphQL-like JS Object:
 
 ```typescript
-import { types, params } from 'typed-graphqlify'
+import { params, types } from 'typed-graphqlify'
 
 const getUserQuery = {
   user: params(
@@ -290,7 +290,7 @@ query getUsers {
 ```
 
 ```typescript
-import { query, types, params } from 'typed-graphqlify'
+import { params, query, types } from 'typed-graphqlify'
 
 query('users', {
   users: params({ status: 'active' }, [
@@ -307,7 +307,7 @@ query('users', {
 Add `types.optional` or `optional` helper method to define optional field.
 
 ```typescript
-import { query, types, optional } from 'typed-graphqlify'
+import { optional, query, types } from 'typed-graphqlify'
 
 query('getUser', {
   user: {
@@ -425,7 +425,7 @@ query getMaleUser {
 ```
 
 ```typescript
-import { query, alias, types } from 'typed-graphqlify'
+import { alias, query, types } from 'typed-graphqlify'
 
 query('getMaleUser', {
   [alias('maleUser', 'user')]: {
@@ -464,7 +464,7 @@ fragment bankAccountFragment on BankAccount {
 ```
 
 ```typescript
-import { query, fragment, alias, params } from 'typed-graphqlify'
+import { alias, fragment, params, query } from 'typed-graphqlify'
 
 const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
   id: types.number,
@@ -508,7 +508,7 @@ query getHeroForEpisode {
 ```
 
 ```typescript
-import { query, types, on } from 'typed-graphqlify'
+import { on, query, types } from 'typed-graphqlify'
 
 query('getHeroForEpisode', {
   hero: {
