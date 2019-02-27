@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- Fix function export by @acro5piano
+
 ## 2.1.0
 
 **Features**
