@@ -40,8 +40,6 @@ And then maintainer (currently only @acro5piano) will review your code. We might
 - Add new release on GitHub by tagging
 - `npm publish`
 
-## Versioning & Development status
+## Versioning
 
-typed-graphqlify is currently `alpha` status, so breaking changes will happen.
-
-We follow semantic versionng, but are working on `2.0.x-alpha` for the time being.
+We follow semantic versioning.
