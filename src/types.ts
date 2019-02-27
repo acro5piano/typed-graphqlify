@@ -13,6 +13,17 @@ export function on<T extends {}>(typeName: string, internal: T): Partial<T> {
   return { [Symbol(`InlineFragment(${typeName})`)]: fragment } as any
 }
 
+export function onUnion<T>(types: Record<string, T>): T {
+  let fragments: Record<any, T> = {}
+  for (const [typeName, internal] of Object.entries(types)) {
+    fragments = {
+      ...fragments,
+      ...on(typeName, internal),
+    }
+  }
+  return fragments as any
+}
+
 function scalarType(): any {
   const scalar: GraphQLScalar = {
     [typeSymbol]: GraphQLType.SCALAR,

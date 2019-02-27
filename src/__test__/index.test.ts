@@ -1,5 +1,6 @@
 import { params, fragment, query, mutation, types, optional, alias, on, rawString } from '../index'
 import { gql } from './test-utils'
+import { onUnion } from 'app/types'
 
 describe('graphqlify', () => {
   it('render GraphQL', () => {
@@ -477,6 +478,70 @@ describe('graphqlify', () => {
                   instuctionSet
                 }
                 ... on HDD {
+                  size
+                  diagnostics {
+                    maxRpm
+                  }
+                }
+              }
+            }
+          }
+          ... on Human {
+            height
+          }
+        }
+      }
+    `)
+  })
+
+  it('render inline fragment unions', () => {
+    const queryObject = {
+      hero: {
+        id: types.number,
+        ...on('Droid', {
+          internalData: {
+            memory: types.number,
+            parts: [
+              {
+                ...onUnion({
+                  Cpu: {
+                    kind: types.constant('CPU'),
+                    instuctionSet: types.string,
+                  },
+                  HDD: {
+                    kind: types.constant('HDD'),
+                    size: types.number,
+                    diagnostics: {
+                      maxRpm: types.number,
+                    },
+                  },
+                }),
+              },
+            ],
+          },
+        }),
+        ...on('Human', {
+          height: types.number,
+        }),
+      },
+    }
+
+    const actual = query('getHeroForEpisode', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getHeroForEpisode {
+        hero {
+          id
+          ... on Droid {
+            internalData {
+              memory
+              parts {
+                ... on Cpu {
+                  kind
+                  instuctionSet
+                }
+                ... on HDD {
+                  kind
                   size
                   diagnostics {
                     maxRpm
