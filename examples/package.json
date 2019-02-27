@@ -7,7 +7,7 @@
     "start": "ts-node index.ts"
   },
   "dependencies": {
-    "typed-graphqlify": "2.1.0"
+    "typed-graphqlify": "2.1.1"
   },
   "devDependencies": {
     "ts-node": "^7.0.1",

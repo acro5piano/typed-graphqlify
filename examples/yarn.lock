@@ -66,10 +66,10 @@ ts-node@^7.0.1:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
-typed-graphqlify@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/typed-graphqlify/-/typed-graphqlify-2.1.0.tgz#fb06ee7f1fbdc932f9b1546ceedae0b702e97a11"
-  integrity sha512-+lQba20/JstMvsB0jtXs3Pnl00lGkXpMSPqg6740H7RaY1O4/5OEmq6WBQyJLFHXQEyikrxTfA8hEiGMIrEy/A==
+typed-graphqlify@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/typed-graphqlify/-/typed-graphqlify-2.1.1.tgz#93d6e2d4a9f15c4f593b3d04870f164ccaca9795"
+  integrity sha512-dnLfCoPw/Deeiq7CRXPCI3L+fBS/bcUtQTv6ZZ3yOSznf8eT1e511aueNS5MzMrOi9SB8FpWL9f51piC5ibtuA==
 
 typescript@^3.2.2:
   version "3.2.2"
