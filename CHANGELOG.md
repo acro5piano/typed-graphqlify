@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.1.0
+
+**Features**
+
+- Fragment support by @luvies
+
+**Breaking changes**
+
+- `query`, `mutation`, `subscription` are now top-level export by @acro5piano
+- Replace `__params` with `params` helper by @luvies
+
+For more detail, please see https://github.com/acro5piano/typed-graphqlify/pull/54
+
 ## 2.0.11-alpha
 
 - Add rawString helper function by @Zzzen
