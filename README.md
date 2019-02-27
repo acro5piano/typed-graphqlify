@@ -523,6 +523,55 @@ query('getHeroForEpisode', {
 })
 ```
 
+If you are using a discriminated union pattern, then you can use the `onUnion` helper, which will automatically generate the union type for you:
+
+```graphql
+query getHeroForEpisode {
+  hero {
+    id
+    ... on Droid {
+      primaryFunction
+    }
+    ... on Human {
+      height
+    }
+  }
+}
+```
+
+```typescript
+import { onUnion, query, types } from 'typed-graphqlify'
+
+query('getHeroForEpisode', {
+  hero: {
+    id: types.number,
+    ...onUnion({
+      Droid: {
+        kind: types.constant('Droid'),
+        primaryFunction: types.string,
+      },
+      Human: {
+        kind: types.constant('Human'),
+        height: types.number,
+      },
+    }),
+  },
+})
+```
+
+This function will return a type of `A | B`, meaning that you can use the following logic to differentiate between the 2 types:
+
+```typescript
+const droidOrHuman = queryResult.hero
+if (droidOrHuman.kind === 'Droid') {
+  const droid = droidOrHuman
+  /// ... handle droid
+} else if (droidOrHument.kind === 'Human') {
+  const human = droidOrHuman
+  /// ... handle human
+}
+```
+
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
 
 # Why not use `apollo client:codegen`?
