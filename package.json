@@ -19,7 +19,7 @@
     "build": "rollup -c",
     "clean": "rm -rf dist/*",
     "dist": "npm-run-all clean build",
-    "format": "prettier --write src/*.ts src/**/*.ts",
+    "format": "prettier --write src/*.ts src/**/*.ts README.md",
     "lint": "tslint --fix src/*.ts src/**/*.ts",
     "test": "jest --maxWorkers=4",
     "test:coverage": "jest --maxWorkers=4 --coverage",
