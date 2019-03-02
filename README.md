@@ -530,9 +530,11 @@ query getHeroForEpisode {
   hero {
     id
     ... on Droid {
+      kind
       primaryFunction
     }
     ... on Human {
+      kind
       height
     }
   }
@@ -565,10 +567,10 @@ This function will return a type of `A | B`, meaning that you can use the follow
 const droidOrHuman = queryResult.hero
 if (droidOrHuman.kind === 'Droid') {
   const droid = droidOrHuman
-  /// ... handle droid
+  // ... handle droid
 } else if (droidOrHument.kind === 'Human') {
   const human = droidOrHuman
-  /// ... handle human
+  // ... handle human
 }
 ```
 
