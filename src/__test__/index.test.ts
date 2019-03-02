@@ -1,6 +1,16 @@
-import { params, fragment, query, mutation, types, optional, alias, on, rawString } from '../index'
+import {
+  params,
+  fragment,
+  query,
+  mutation,
+  types,
+  optional,
+  alias,
+  on,
+  rawString,
+  onUnion,
+} from '../index'
 import { gql } from './test-utils'
-import { onUnion } from 'app/types'
 
 describe('graphqlify', () => {
   it('render GraphQL', () => {
