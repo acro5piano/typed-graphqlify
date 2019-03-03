@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0
+
+- union fragment support by @luvies
+
 ## 2.1.1
 
 - Fix function export by @acro5piano
