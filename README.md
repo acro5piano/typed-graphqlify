@@ -576,6 +576,39 @@ if (droidOrHuman.kind === 'Droid') {
 
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
 
+# Usage with React Native
+
+`typed-graphqlify` uses `Symbol` which React Native cannot interpret.
+
+So, you may need to import `babel-polyfill` in `App.tsx`.
+
+```typescript
+import 'babel-polyfill'
+import * as React from 'react'
+import { View, Text } from 'react-native'
+import { query, types } from 'typed-graphqlify'
+
+const queryString = query({
+  getUser: {
+    user: {
+      id: types.number,
+    },
+  },
+})
+
+export class App extends React.Component<{}> {
+  render() {
+    return (
+      <View>
+        <Text>{queryString}</Text>
+      </View>
+    )
+  }
+}
+```
+
+See: https://github.com/facebook/react-native/issues/18932
+
 # Why not use `apollo client:codegen`?
 
 There are some GraphQL -> TypeScript convertion tools. The most famous one is Apollo codegen:
