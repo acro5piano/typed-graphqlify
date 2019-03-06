@@ -8,7 +8,7 @@ export default {
       declaration: true,
     }),
   ],
-  external: id => !id.startsWith('.') && !id.startsWith('/'),
+  external: id => !id.startsWith('.') && !id.startsWith('/') && id !== 'tslib',
   output: [
     {
       file: 'dist/index.js',
