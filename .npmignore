@@ -2,10 +2,9 @@ src
 examples
 coverage
 docs
+*.jpg
 *.png
 *.log
-jest.config.js
-tsconfig.json
 CONTRIBUTING.md
 ISSUE_TEMPLATE.md
 PULL_REQUEST_TEMPLATE.md
@@ -16,5 +15,7 @@ tslint.json
 .publishrc
 .rpt2_cache
 
+jest.config.js
+tsconfig.json
+tslint.json
 prettier.config.js
-screenshot.jpg
