@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1
+
+- Fix rollup config: exluding 'tslib' by @acro5piano
+
 ## 2.2.0
 
 - union fragment support by @luvies
