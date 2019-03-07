@@ -578,7 +578,7 @@ See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-g
 
 # Usage with React Native
 
-`typed-graphqlify` uses `Symbol` which React Native cannot interpret.
+This library uses `Symbol` and `Map`, meaning that if you are targeting ES5 and lower, you will need to polyfill both of them.
 
 So, you may need to import `babel-polyfill` in `App.tsx`.
 
