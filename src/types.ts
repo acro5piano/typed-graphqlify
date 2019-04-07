@@ -1,5 +1,8 @@
 import { typeSymbol, GraphQLType, GraphQLScalar, GraphQLInlineFragment } from './render'
 
+// Utility type
+type ValueOf<T> = T[keyof T]
+
 export function optional<T>(obj: T): T | undefined {
   return obj
 }
@@ -48,7 +51,7 @@ export class types {
     return scalarType()
   }
 
-  static oneOf<T extends {}>(_e: T): keyof T {
+  static oneOf<T extends {}>(_e: T): ValueOf<T> {
     return scalarType()
   }
 
@@ -61,7 +64,7 @@ export class types {
     string?: string
     boolean?: boolean
     constant: <T extends string>(_c: T) => T | undefined
-    oneOf: <T extends {}>(_e: T) => (keyof T) | undefined
+    oneOf: <T extends {}>(_e: T) => (ValueOf<T>) | undefined
     custom: <T>() => T | undefined
   } = types
 }
