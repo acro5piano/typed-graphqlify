@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2
+
+- use `ValueOf<T>` instead of `keyof T` in types.enum by @acro5piano
+
 ## 2.2.1
 
 - Fix rollup config: exluding 'tslib' by @acro5piano
