@@ -39,7 +39,11 @@ export function alias<T extends string>(alias: T, target: string): T {
   return `${alias}:${target}` as T
 }
 
-export function fragment<T>(name: string, typeName: string, input: T): T {
+export function fragment<T extends Record<string, unknown>>(
+  name: string,
+  typeName: string,
+  input: T,
+): T {
   const fragment: GraphQLFragment = {
     [typeSymbol]: GraphQLType.FRAGMENT,
     name,

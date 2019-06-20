@@ -418,6 +418,51 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render enum with value', () => {
+    enum UserType {
+      'Student' = 'Student',
+      'Teacher' = 'Student',
+    }
+
+    const queryObject = {
+      user: {
+        id: types.number,
+        type: types.oneOf(UserType),
+      },
+    }
+    const actual = query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
+
+  it('render array as const', () => {
+    const UserType = ['Student', 'Teacher'] as const
+
+    const queryObject = {
+      user: {
+        id: types.number,
+        type: types.oneOf(UserType),
+      },
+    }
+    const actual = query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
+
   it('render inline fragment', () => {
     const queryObject = {
       hero: {
@@ -637,7 +682,7 @@ describe('graphqlify', () => {
         str: types.string,
         bool: types.boolean,
         const: types.constant('const'),
-        oneOf: types.oneOf(TestEnum),
+        oneOf: types.oneOf(['a', 'b', 'c'] as const),
         custom: types.custom<{ a: string }>(),
         undef: undefined,
         optional: {
