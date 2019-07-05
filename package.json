@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Build Typed GraphQL Queries in TypeScript. A better TypeScript + GraphQL experience.",
   "keywords": [
     "graphql",
