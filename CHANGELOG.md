@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.3
+
+- fix vulnerability, and typing by @acro5piano
+
 ## 2.2.2
 
 - use `ValueOf<T>` instead of `keyof T` in types.enum by @acro5piano
