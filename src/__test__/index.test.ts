@@ -731,6 +731,30 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render or', () => {
+    const queryObject: {
+      user: {
+        id: number
+        type: string | null
+      }
+    } = {
+      user: {
+        id: types.number,
+        type: types.or(types.string, null),
+      },
+    }
+    const actual = query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
+
   it('properly errors on invalid input', () => {
     expect(() => (query as any)('EmptyQuery')).toThrow()
     expect(() => query({})).toThrow()
