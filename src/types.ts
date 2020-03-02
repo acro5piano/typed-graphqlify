@@ -69,7 +69,7 @@ export class types {
     string?: string
     boolean?: boolean
     constant: <T extends string>(_c: T) => T | undefined
-    oneOf: <T extends {}>(_e: T) => (ValueOf<T>) | undefined
+    oneOf: <T extends {}>(_e: T) => ValueOf<T> | undefined
     custom: <T>() => T | undefined
   } = types
 }
