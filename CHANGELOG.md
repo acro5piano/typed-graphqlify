@@ -1,12 +1,17 @@
 # Changelog
 
+## 2.3.0
+
+- Array enum support by @acro5piano
+- Make enum to accept both `ValueOf<T>` and `keyof T` by @acro5piano
+
 ## 2.2.3
 
-- fix vulnerability, and typing by @acro5piano
+- Fix vulnerability, and typing by @acro5piano
 
 ## 2.2.2
 
-- use `ValueOf<T>` instead of `keyof T` in types.enum by @acro5piano
+- Use `ValueOf<T>` instead of `keyof T` in types.enum by @acro5piano
 
 ## 2.2.1
 
