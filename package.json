@@ -26,6 +26,9 @@
     "prepublish": "npm run dist"
   },
   "dependencies": {},
+  "peerDependencies": {
+    "typescript": "^3.5.1"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.18",

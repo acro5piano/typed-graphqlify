@@ -463,6 +463,33 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render otional enums', () => {
+    const UserTypeArray = ['Student', 'Teacher'] as const
+    enum UserTypeEnum {
+      'Student' = 'Student',
+      'Teacher' = 'Student',
+    }
+
+    const queryObject = {
+      user: {
+        id: types.number,
+        userTypeEnum: types.optional.oneOf(UserTypeEnum),
+        userTypeArray: types.optional.oneOf(UserTypeArray),
+      },
+    }
+    const actual = query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          userTypeEnum
+          userTypeArray
+        }
+      }
+    `)
+  })
+
   it('render inline fragment', () => {
     const queryObject = {
       hero: {
@@ -682,7 +709,8 @@ describe('graphqlify', () => {
         str: types.string,
         bool: types.boolean,
         const: types.constant('const'),
-        oneOf: types.oneOf(['a', 'b', 'c'] as const),
+        oneOfEnum: types.oneOf(TestEnum),
+        oneOfArray: types.oneOf(['a', 'b', 'c'] as const),
         custom: types.custom<{ a: string }>(),
         undef: undefined,
         optional: {
@@ -690,12 +718,12 @@ describe('graphqlify', () => {
           str: types.optional.string,
           bool: types.optional.boolean,
           const: types.optional.constant('const'),
-          oneOf: types.optional.oneOf(TestEnum),
+          oneOfEnum: types.oneOf(TestEnum),
+          oneOfArray: types.oneOf(['a', 'b', 'c'] as const),
           custom: types.optional.custom<{ a: string }>(),
         },
       },
     }
-
     const actual = query('getUser', queryObject)
 
     expect(actual).toEqual(gql`
@@ -705,14 +733,16 @@ describe('graphqlify', () => {
           str
           bool
           const
-          oneOf
+          oneOfEnum
+          oneOfArray
           custom
           optional {
             num
             str
             bool
             const
-            oneOf
+            oneOfEnum
+            oneOfArray
             custom
           }
         }
