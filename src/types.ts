@@ -2,8 +2,11 @@ import { typeSymbol, GraphQLType, GraphQLScalar, GraphQLInlineFragment } from '.
 
 // Utility type
 type ValueOf<T> = T[keyof T]
+type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer ElementType>
+  ? ElementType
+  : never
 
-export function optional<T>(obj: T): T | undefined {
+export function optional<T>(obj: T): T | undefined | null {
   return obj
 }
 
@@ -51,7 +54,9 @@ export class types {
     return scalarType()
   }
 
-  static oneOf<T extends {}>(_e: T): ValueOf<T> {
+  static oneOf<T extends ReadonlyArray<string>>(_e: T): ElementType<T>
+  static oneOf<T extends {}>(_e: T): ValueOf<T> | keyof T
+  static oneOf<T extends {} | ReadonlyArray<string>>(_e: T) {
     return scalarType()
   }
 

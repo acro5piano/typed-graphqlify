@@ -26,6 +26,9 @@
     "prepublish": "npm run dist"
   },
   "dependencies": {},
+  "peerDependencies": {
+    "typescript": "^3.5.1"
+  },
   "devDependencies": {
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.18",
@@ -41,7 +44,7 @@
     "ts-node": "^7.0.1",
     "tslib": "^1.9.3",
     "tslint": "^5.12.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.5.1"
   },
   "husky": {
     "hooks": {
