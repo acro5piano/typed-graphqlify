@@ -199,7 +199,7 @@ describe('graphqlify', () => {
         },
       ),
       bankAccount: params(
-        { id: 2 },
+        { bank: rawString('city_bank') },
         {
           id: types.number,
         },
@@ -212,7 +212,7 @@ describe('graphqlify', () => {
         user(id: 1) {
           id
         }
-        bankAccount(id: 2) {
+        bankAccount(bank: "city_bank") {
           id
         }
       }
@@ -685,6 +685,27 @@ describe('graphqlify', () => {
         user(condition: { param1: $param1, param2: $param2 }) {
           id
           type
+        }
+      }
+    `)
+  })
+
+  it('render hasura-like graphql', () => {
+    // prettier-ignore
+    expect(
+      mutation('BulkInsertUsers', params({ $objects: '[user_insert_input!]!' }, {
+        insert_users: params({ objects: '$objects' }, {
+          returning: {
+            id: types.number,
+          },
+        })
+      }))
+    ).toEqual(gql`
+      mutation BulkInsertUsers($objects: [user_insert_input!]!) {
+        insert_users(objects: $objects) {
+          returning {
+            id
+          }
         }
       }
     `)
