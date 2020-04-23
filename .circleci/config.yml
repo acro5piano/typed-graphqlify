@@ -23,5 +23,7 @@ jobs:
 
       - run: yarn lint
       - run: yarn format
+      - run: yarn tsc
       - run: yarn test:coverage
+      - run: yarn test-d
       - run: yarn codecov -t $CODECOV_TOKEN
