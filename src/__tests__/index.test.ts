@@ -703,10 +703,10 @@ describe('graphqlify', () => {
       },
     )
 
-    const actual = mutation('bulkInsertUsers', hasuraInsertQuery)
+    const actual = mutation('BulkInsertUsers', hasuraInsertQuery)
 
     expect(actual).toEqual(gql`
-      mutation bulkInsertUsers($objects: [user_insert_input!]!) {
+      mutation BulkInsertUsers($objects: [user_insert_input!]!) {
         insert_users(objects: $objects) {
           returning {
             id
