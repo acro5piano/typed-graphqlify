@@ -348,14 +348,16 @@ query('getUser', {
 
 ## Enum field
 
-Use `types.oneOf` method to define Enum field.
+Use `types.oneOf` method to define Enum field. It accepts an instance of `Array`, `Object` and `Enum`.
+
+**Deprecated: Don't use enum, use array or plain object to define enum if possible. typed-graphqlify can't guarantee inferred type is correct.**
 
 ```graphql
 query getUser {
   user {
     id
     name
-    type # <-- `Student` or `Teacher`
+    type # <-- `STUDENT` or `TEACHER`
   }
 }
 ```
@@ -363,9 +365,42 @@ query getUser {
 ```typescript
 import { query, types } from 'typed-graphqlify'
 
+const userType = ['STUDENT', 'TEACHER'] as const
+
+query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    type: types.oneOf(userType),
+  },
+})
+```
+
+```typescript
+import { query, types } from 'typed-graphqlify'
+
+const userType = {
+  STUDENT: 'STUDENT',
+  TEACHER: 'TEACHER',
+}
+
+query('getUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    type: types.oneOf(userType),
+  },
+})
+```
+
+You can also use `enum`:
+
+```typescript
+import { query, types } from 'typed-graphqlify'
+
 enum UserType {
-  'Student',
-  'Teacher',
+  'STUDENT',
+  'TEACHER',
 }
 
 query('getUser', {
@@ -376,8 +411,6 @@ query('getUser', {
   },
 })
 ```
-
-Note: Currently creating type from array element is not supported in TypeScript. See https://github.com/Microsoft/TypeScript/issues/28046
 
 ## Multiple Queries
 

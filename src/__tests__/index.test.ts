@@ -442,6 +442,30 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render object as enum', () => {
+    const userType = {
+      STUDENT: 'STUDENT',
+      TEACHER: 'TEACHER',
+    }
+
+    const queryObject = {
+      user: {
+        id: types.number,
+        type: types.oneOf(userType),
+      },
+    }
+    const actual = query('getUser', queryObject)
+
+    expect(actual).toEqual(gql`
+      query getUser {
+        user {
+          id
+          type
+        }
+      }
+    `)
+  })
+
   it('render array as const', () => {
     const UserType = ['Student', 'Teacher'] as const
 
@@ -463,7 +487,7 @@ describe('graphqlify', () => {
     `)
   })
 
-  it('render otional enums', () => {
+  it('render optional enums', () => {
     const UserTypeArray = ['Student', 'Teacher'] as const
     enum UserTypeEnum {
       'Student' = 'Student',
