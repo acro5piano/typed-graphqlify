@@ -691,21 +691,16 @@ describe('graphqlify', () => {
   })
 
   it('render hasura-like graphql', () => {
-    const hasuraInsertQuery = params(
-      { $objects: '[user_insert_input!]!' },
-      {
-        insert_users: params(
-          { objects: '$objects' },
-          {
-            returning: { id: types.number },
+    // prettier-ignore
+    expect(
+      mutation('BulkInsertUsers', params({ $objects: '[user_insert_input!]!' }, {
+        insert_users: params({ objects: '$objects' }, {
+          returning: {
+            id: types.number,
           },
-        ),
-      },
-    )
-
-    const actual = mutation('BulkInsertUsers', hasuraInsertQuery)
-
-    expect(actual).toEqual(gql`
+        })
+      }))
+    ).toEqual(gql`
       mutation BulkInsertUsers($objects: [user_insert_input!]!) {
         insert_users(objects: $objects) {
           returning {
