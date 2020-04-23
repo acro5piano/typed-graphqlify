@@ -3,14 +3,16 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  moduleNameMapper: {
-    '^app(.*)$': '<rootDir>/src$1',
+  globals: {
+    'ts-jest': {
+      diagnostics: {
+        warnOnly: true,
+      },
+    },
   },
+  moduleFileExtensions: ['ts', 'js'],
   coverageDirectory: './coverage/',
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/*.ts'],
   automock: false,
-  testEnvironment: 'jsdom',
-  testURL: 'http://localhost/',
 }
