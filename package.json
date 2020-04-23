@@ -22,6 +22,7 @@
     "format": "prettier --write src/*.ts src/**/*.ts README.md",
     "lint": "tslint --fix src/*.ts src/**/*.ts",
     "test": "jest --maxWorkers=4",
+    "test-d": "yarn run tsc && yarn run tsd",
     "test:coverage": "jest --maxWorkers=4 --coverage",
     "prepublish": "npm run dist"
   },
@@ -43,6 +44,7 @@
     "rollup-plugin-typescript2": "^0.18.1",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
+    "tsd": "^0.11.0",
     "tslib": "^1.9.3",
     "tslint": "^5.12.0",
     "typescript": "^3.5.1"
