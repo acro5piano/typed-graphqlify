@@ -1,6 +1,9 @@
-import { expectType } from 'tsd'
+import { expectType, expectError } from 'tsd'
 import { params, types } from '../dist'
 
+/*
+ * Basic object
+ */
 {
   const queryObject = {
     user: params(
@@ -30,6 +33,9 @@ import { params, types } from '../dist'
   expectType<ExpectedType>(queryObject)
 }
 
+/*
+ * Enum array
+ */
 {
   const UserType = ['Student', 'Teacher'] as const
 
@@ -52,6 +58,9 @@ import { params, types } from '../dist'
   expectType<ExpectedType>(queryObject)
 }
 
+/*
+ * Enum object
+ */
 {
   const userType = {
     STUDENT: 'STUDENT',
@@ -75,4 +84,34 @@ import { params, types } from '../dist'
   }
 
   expectType<ExpectedType>(queryObject)
+}
+
+/*
+ * Optional
+ */
+{
+  const queryObject = {
+    user: {
+      id: types.number,
+      name: types.optional.string,
+    },
+  }
+
+  type ExpectedType = {
+    user: {
+      id: number
+      name: string | undefined
+    }
+  }
+
+  expectType<ExpectedType>(queryObject)
+
+  type UnexpectedType = {
+    user: {
+      id: number
+      name: string
+    }
+  }
+
+  expectError<UnexpectedType>(queryObject)
 }
