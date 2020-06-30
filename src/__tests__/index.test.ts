@@ -1,6 +1,7 @@
 import {
   params,
   fragment,
+  fragmentToString,
   query,
   mutation,
   types,
@@ -793,6 +794,16 @@ describe('graphqlify', () => {
         }
       }
     `)
+  })
+
+  it('render fragments alone', () => {
+    const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
+      id: types.number,
+      branch: types.string,
+    })
+    expect(fragmentToString(bankAccountFragment)).toEqual(
+      `fragment bankAccountFragment on BankAccount{id branch}`,
+    )
   })
 
   it('render fragments', () => {
