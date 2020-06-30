@@ -285,8 +285,9 @@ export function fragmentToString(value: Record<string, unknown>): string {
   }
 
   let output = ''
-  for (const [_, fragment] of Array.from(context.fragments.entries())) {
+  for (const [, fragment] of Array.from(context.fragments.entries())) {
     output = output + renderFragment(fragment, currentContext)
   }
+
   return output
 }
