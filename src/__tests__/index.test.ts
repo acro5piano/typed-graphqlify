@@ -802,8 +802,32 @@ describe('graphqlify', () => {
       branch: types.string,
     })
     expect(fragmentToString(bankAccountFragment)).toEqual(
-      `fragment bankAccountFragment on BankAccount{id branch}`,
+      gql`
+        fragment bankAccountFragment on BankAccount {
+          id
+          branch
+        }
+      `,
     )
+  })
+
+  it('render nested fragments alone', () => {
+    const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
+      id: types.number,
+      branch: types.string,
+      user: {
+        name: types.string,
+      },
+    })
+    expect(fragmentToString(bankAccountFragment)).toEqual(gql`
+      fragment bankAccountFragment on BankAccount {
+        id
+        branch
+        user {
+          name
+        }
+      }
+    `)
   })
 
   it('render fragments', () => {
