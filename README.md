@@ -1,6 +1,5 @@
-# Sponsors
-
-<a href="https://tracking.gitads.io/?repo=typed-graphqlify"><img src="https://images.gitads.io/typed-graphqlify" alt="GitAds"/></a>
+>### GitAds
+><a href="https://tracking.gitads.io/?repo=typed-graphqlify"><img src="https://images.gitads.io/typed-graphqlify" alt="GitAds"/></a>
 
 [![CircleCI](https://circleci.com/gh/acro5piano/typed-graphqlify.svg?style=svg)](https://circleci.com/gh/acro5piano/typed-graphqlify)
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
