@@ -1,6 +1,6 @@
 **Do you have any questions about GraphQL, TypeScript, or React?**
 
-I'm happy to assist you through Remoterhour. Feel free to call me if I'm online → https://remotehour.com/kay/quick
+I'm happy to assist you via Remotehour. Feel free to call me if I'm online → https://remotehour.com/kay/quick
 
 [![CircleCI](https://circleci.com/gh/acro5piano/typed-graphqlify.svg?style=svg)](https://circleci.com/gh/acro5piano/typed-graphqlify)
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
