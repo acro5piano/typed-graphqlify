@@ -1,3 +1,6 @@
+>### GitAds
+><a href="https://tracking.gitads.io/?repo=typed-graphqlify"><img src="https://images.gitads.io/typed-graphqlify" alt="GitAds"/></a>
+
 **Do you have any questions about GraphQL, TypeScript, or React?**
 
 I'm happy to assist you via Remotehour. Feel free to call me if I'm online → https://remotehour.com/kay/quick
