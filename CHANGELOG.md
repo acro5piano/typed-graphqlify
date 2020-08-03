@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.4.2
+
+- Bump deps by @acro5piano
+
+## 2.4.1
+
+- Bump deps by @acro5piano
+
 ## 2.4.0
 
 - Allow render a single fragment by @kevinsimper
