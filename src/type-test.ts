@@ -1,5 +1,24 @@
 import { ParseGql } from './parser'
 
+type Post  = {
+  id: number
+  title: string
+}
+
+type User = {
+  id: number
+  gender: 'male' | 'female' | 'other'
+  posts: Post[]
+}
+
+type Schema = {
+  Query: {
+    hello: string
+    posts: Post[]
+    users: User[]
+  }
+}
+
 const query = `
   query {
     hello
@@ -10,6 +29,10 @@ const query = `
     users {
       id
       gender
+      posts {
+        id
+        title
+      }
     }
   }
 `
@@ -28,4 +51,14 @@ type Expected = {
   }
 }
 
+// @ts-ignore
 type IsEq = Actual extends Expected ? 'YES' : 'NO'
+
+declare function exec<T>(gql: string): Promise<T>
+
+declare const a: Actual
+
+// @ts-ignore
+exec<ParseGql<typeof query>>(query).then(res => {
+  res.users.posts
+})
