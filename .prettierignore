@@ -1,3 +1,3 @@
-src/Ast.ts
-src/Mst.ts
-src/parser.ts
+# Note: prettier does not support TypeScript 4.1 yet
+
+src/*
