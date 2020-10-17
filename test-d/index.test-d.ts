@@ -1,23 +1,20 @@
 import { expectType, expectError } from 'tsd'
-import { params, types } from '../dist'
+import { alias, query, types } from '../dist'
 
 /*
  * Basic object
  */
 {
-  const queryObject = {
-    user: params(
-      { id: 1 },
-      {
+  const q = query({
+    [alias('user', 'user(id: 1)')]: {
+      id: types.number,
+      name: types.string,
+      bankAccount: {
         id: types.number,
-        name: types.string,
-        bankAccount: {
-          id: types.number,
-          branch: types.string,
-        },
+        branch: types.string,
       },
-    ),
-  }
+    },
+  })
 
   type ExpectedType = {
     user: {
@@ -30,7 +27,7 @@ import { params, types } from '../dist'
     }
   }
 
-  expectType<ExpectedType>(queryObject)
+  expectType<ExpectedType>(q.data)
 }
 
 /*

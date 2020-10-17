@@ -67,34 +67,29 @@ The biggest problem is the redundancy in our codebase, which makes it difficult 
 
 # How to use
 
-First, define GraphQL-like JS Object:
+Define GraphQL-like JS Object:
 
 ```typescript
-import { params, types } from 'typed-graphqlify'
+import { query, types, alias } from 'typed-graphqlify'
 
-const getUserQuery = {
-  user: params(
-    { id: 1 },
-    {
+const getUserQuery = query('GetUser(id: Int!)', {
+  [alias('user', 'user(id: $id)')] {
+    id: types.number,
+    name: types.string,
+    bankAccount: {
       id: types.number,
-      name: types.string,
-      bankAccount: {
-        id: types.number,
-        branch: types.optional.string,
-      },
+      branch: types.optional.string,
     },
   ),
 }
 ```
 
-Note that we use our `types` helper to define types in the result, and the `params` helper to define the parameters.
+Note that we use our `types` helper to define types in the result, and the `alias` helper to define the alias with parameters.
 
 Then, convert the JS Object to GraphQL (string) with `graphqlify`:
 
 ```typescript
-import { query } from 'typed-graphqlify'
-
-const gqlString = query('getUser', getUserQuery)
+const gqlString = getUserQuery.toString()
 
 console.log(gqlString)
 // =>
@@ -116,7 +111,7 @@ Finally, execute the GraphQL:
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
-const result: typeof getUser = await executeGraphql(gqlString)
+const result: typeof getUserQuery.data = await executeGraphql(gqlString)
 
 // As we cast `result` to `typeof getUser`,
 // Now, `result` type looks like this:
@@ -211,11 +206,13 @@ query({
 
 ## Basic Mutation
 
-Just use `mutation`.
+Use `mutation`. Note that you should use `alias` to remove arguments.
+
+Note: When `Template Literal Type` is supported officially, you don't have to write `alias`. See https://github.com/acro5piano/typed-graphqlify/issues/158
 
 ```graphql
 mutation updateUserMutation($input: UserInput!) {
-  updateUser(input: $input) {
+  updateUser: updateUser(input: $input) {
     id
     name
   }
@@ -223,13 +220,13 @@ mutation updateUserMutation($input: UserInput!) {
 ```
 
 ```typescript
-import { mutation, params } from 'typed-graphqlify'
+import { mutation, alias } from 'typed-graphqlify'
 
-mutation('updateUserMutation', params({ $input: 'UserInput!' }, {
-  updateUser: params({ input: '$input' }, {
+mutation('updateUserMutation($input: UserInput!}', {
+  [alias('updateUser', 'updateUser(input: $input)')]: {
     id: types.number,
     name: types.string,
-  }),
+  },
 })
 ```
 
@@ -287,7 +284,7 @@ Just add array to your query. This does not change the result, but TypeScript wi
 
 ```graphql
 query getUsers {
-  users(status: 'active') {
+  users: users(status: "active") {
     id
     name
   }
@@ -295,15 +292,13 @@ query getUsers {
 ```
 
 ```typescript
-import { params, query, types } from 'typed-graphqlify'
+import { alias, query, types } from 'typed-graphqlify'
 
 query('users', {
-  users: params({ status: 'active' }, [
-    {
-      id: types.number,
-      name: types.string,
-    },
-  ]),
+  [alias('users', 'users(status: "active")')]: [{
+    id: types.number,
+    name: types.string,
+  )],
 })
 ```
 
@@ -479,7 +474,7 @@ Use the `fragment` helper to create them, and spread the result into places the 
 
 ```graphql
 query {
-  user(id: 1) {
+  user: user(id: 1) {
     ...userFragment
   }
   maleUsers: users(sex: MALE) {
@@ -502,7 +497,7 @@ fragment bankAccountFragment on BankAccount {
 ```
 
 ```typescript
-import { alias, fragment, params, query } from 'typed-graphqlify'
+import { alias, fragment, query } from 'typed-graphqlify'
 
 const bankAccountFragment = fragment('bankAccountFragment', 'BankAccount', {
   id: types.number,
@@ -518,12 +513,12 @@ const userFragment = fragment('userFragment', 'User', {
 })
 
 query({
-  user: params({ id: 1 }, {
+  [alias('user', 'user(id: 1)')], {
     ...userFragment,
-  }),
-  [alias('maleUsers', 'users')]: params({ sex: 'MALE' }, {
+  },
+  [alias('maleUsers', 'users(sex: MALE)')], {
     ...userFragment,
-  }),
+  },
 }
 ```
 
