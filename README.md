@@ -125,7 +125,7 @@ const data: typeof getUserQuery.data = await executeGraphql(getUserQuery.toStrin
 // }
 ```
 
-![image](images/screenshot.jpg)
+![image](https://user-images.githubusercontent.com/10719495/96347530-2df85b80-10dd-11eb-9180-39eab0c9177b.png)
 
 # Features
 
@@ -685,7 +685,7 @@ It is useful to write GraphQL programmatically, although that is an edge case.
 
 Imagine AWS management console:
 
-![image](https://user-images.githubusercontent.com/10719495/96347530-2df85b80-10dd-11eb-9180-39eab0c9177b.png)
+![image](https://user-images.githubusercontent.com/10719495/50487625-79420580-0a42-11e9-882f-2b5d571ebd13.png)
 
 If you build something like that with GraphQL, you have to build GraphQL dynamically and programmatically.
 
