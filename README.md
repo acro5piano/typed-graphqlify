@@ -685,7 +685,7 @@ It is useful to write GraphQL programmatically, although that is an edge case.
 
 Imagine AWS management console:
 
-![image](https://user-images.githubusercontent.com/10719495/96347462-e07bee80-10dc-11eb-8691-1135efcae124.png)
+![image](https://user-images.githubusercontent.com/10719495/96347530-2df85b80-10dd-11eb-9180-39eab0c9177b.png)
 
 If you build something like that with GraphQL, you have to build GraphQL dynamically and programmatically.
 
