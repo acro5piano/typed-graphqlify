@@ -206,7 +206,7 @@ query({
 
 Use `mutation`. Note that you should use `alias` to remove arguments.
 
-Note: When `Template Literal Type` is supported officially, you don't have to write `alias`. See https://github.com/acro5piano/typed-graphqlify/issues/158
+Note: When `Template Literal Type` is supported officially, we don't have to write `alias`. See https://github.com/acro5piano/typed-graphqlify/issues/158
 
 ```graphql
 mutation updateUserMutation($input: UserInput!) {
@@ -348,8 +348,6 @@ query('getUser', {
 
 Use `types.oneOf` method to define Enum field. It accepts an instance of `Array`, `Object` and `Enum`.
 
-**Deprecated: Don't use enum, use array or plain object to define enum if possible. typed-graphqlify can't guarantee inferred type is correct.**
-
 ```graphql
 query getUser {
   user {
@@ -392,6 +390,8 @@ query('getUser', {
 ```
 
 You can also use `enum`:
+
+**Deprecated: Don't use enum, use array or plain object to define enum if possible. typed-graphqlify can't guarantee inferred type is correct.**
 
 ```typescript
 import { query, types } from 'typed-graphqlify'
