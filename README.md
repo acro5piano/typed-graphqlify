@@ -605,6 +605,24 @@ if (droidOrHuman.kind === 'Droid') {
 }
 ```
 
+## Directive
+
+Directive is not supported, but you can use `alias` to render it.
+
+```graphql
+query {
+  myState: myState @client
+}
+```
+
+```typescript
+import { alias, query } from 'typed-graphqlify'
+
+query({
+  [alias('myState', 'myState @client')]: types.string,
+})
+```
+
 See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
 
 # Usage with React Native

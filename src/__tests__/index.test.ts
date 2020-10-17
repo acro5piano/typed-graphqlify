@@ -954,4 +954,18 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render directive', () => {
+    const q = query({
+      [alias('myState', 'myState @client')]: types.string,
+    })
+
+    const actual = gql(q.toString())
+
+    expect(actual).toEqual(gql`
+      query {
+        myState: myState @client
+      }
+    `)
+  })
 })
