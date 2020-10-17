@@ -4,17 +4,33 @@ interface QueryObject {
   [x: string]: any
 }
 
+interface CompiledResult<D, V> {
+  toString: () => string
+  data: D
+  variable: V
+}
+
 function createOperate(operateType: string) {
-  function operate(queryObject: QueryObject): string
-  function operate(operationName: string, queryObject: QueryObject): string
-  function operate(opNameOrQueryObject: string | QueryObject, queryObject?: QueryObject): string {
+  function operate<T extends QueryObject>(queryObject: T): CompiledResult<T, any>
+  function operate<T extends QueryObject>(
+    operationName: string,
+    queryObject: T,
+  ): CompiledResult<T, any>
+  function operate<T extends QueryObject>(
+    opNameOrQueryObject: string | T,
+    queryObject?: T,
+  ): CompiledResult<any, any> {
     if (typeof opNameOrQueryObject === 'string') {
       if (!queryObject) {
         throw new Error('queryObject is not set')
       }
-      return `${operateType} ${opNameOrQueryObject}${render(queryObject)}`
+      return {
+        toString: () => `${operateType} ${opNameOrQueryObject}${render(queryObject)}`,
+      } as any
     }
-    return `${operateType}${render(opNameOrQueryObject)}`
+    return {
+      toString: () => `${operateType}${render(opNameOrQueryObject)}`,
+    } as any
   }
   return operate
 }

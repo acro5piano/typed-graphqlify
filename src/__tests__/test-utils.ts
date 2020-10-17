@@ -1,5 +1,6 @@
-export function gql(literals: TemplateStringsArray) {
-  return literals[0]
+export function gql(arg: string | TemplateStringsArray) {
+  const target = typeof arg === 'string' ? arg : arg[0]
+  return target
     .replace(/\n/g, '')
     .replace(/ +/g, ' ')
     .replace(/^ /, '')
