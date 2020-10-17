@@ -72,29 +72,27 @@ Define GraphQL-like JS Object:
 ```typescript
 import { query, types, alias } from 'typed-graphqlify'
 
-const getUserQuery = query('GetUser(id: Int!)', {
-  [alias('user', 'user(id: $id)')] {
+const getUserQuery = query('GetUser', {
+  user: {
     id: types.number,
     name: types.string,
     bankAccount: {
       id: types.number,
       branch: types.optional.string,
     },
-  ),
-}
+  },
+})
 ```
 
-Note that we use our `types` helper to define types in the result, and the `alias` helper to define the alias with parameters.
+Note that we use our `types` helper to define types in the result.
 
-Then, convert the JS Object to GraphQL (string) with `graphqlify`:
+The `getUserQuery` has `toString()` method which converts the JS object into GraphQL string:
 
 ```typescript
-const gqlString = getUserQuery.toString()
-
-console.log(gqlString)
+console.log(getUserQuery.toString())
 // =>
 //   query getUser {
-//     user(id: 1) {
+//     user {
 //       id
 //       name
 //       bankAccount {
@@ -105,16 +103,16 @@ console.log(gqlString)
 //   }
 ```
 
-Finally, execute the GraphQL:
+Finally, execute the GraphQL and type its result:
 
 ```typescript
 import { executeGraphql } from 'some-graphql-request-library'
 
 // We would like to type this!
-const result: typeof getUserQuery.data = await executeGraphql(gqlString)
+const data: typeof getUserQuery.data = await executeGraphql(getUserQuery.toString())
 
-// As we cast `result` to `typeof getUser`,
-// Now, `result` type looks like this:
+// As we cast `data` to `typeof getUserQuery.data`,
+// Now, `data` type looks like this:
 // interface result {
 //   user: {
 //     id: number

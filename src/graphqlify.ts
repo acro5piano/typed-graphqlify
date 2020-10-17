@@ -8,6 +8,7 @@ interface CompiledResult<D, V> {
   toString: () => string
   data: D
   variable: V
+  result: { data: D }
 }
 
 function createOperate(operateType: string) {
