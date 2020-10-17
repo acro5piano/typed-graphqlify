@@ -125,7 +125,7 @@ const data: typeof getUserQuery.data = await executeGraphql(getUserQuery.toStrin
 // }
 ```
 
-![image](https://user-images.githubusercontent.com/10719495/96347530-2df85b80-10dd-11eb-9180-39eab0c9177b.png)
+![image](https://user-images.githubusercontent.com/10719495/96347801-f5598180-10de-11eb-9283-78998a6a963e.png)
 
 # Features
 
