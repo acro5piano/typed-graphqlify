@@ -11,8 +11,8 @@ module.exports = {
     },
   },
   moduleFileExtensions: ['ts', 'js'],
-  coverageDirectory: './coverage/',
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: ['<rootDir>/src/*.ts'],
+  coverageDirectory: './coverage/',
   automock: false,
 }

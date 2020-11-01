@@ -1,6 +1,6 @@
 {
   "name": "typed-graphqlify",
-  "version": "2.4.5",
+  "version": "3.0.0",
   "description": "Build Typed GraphQL Queries in TypeScript. A better TypeScript + GraphQL experience.",
   "keywords": [
     "graphql",
@@ -21,9 +21,9 @@
     "dist": "npm-run-all clean build",
     "format": "prettier --write src/*.ts src/**/*.ts README.md",
     "lint": "tslint --fix src/*.ts src/**/*.ts",
-    "test": "jest --maxWorkers=4",
+    "test": "jest",
     "test-d": "yarn run tsc && yarn run tsd",
-    "test:coverage": "jest --maxWorkers=4 --coverage",
+    "test:coverage": "jest --coverage",
     "prepublish": "npm run dist"
   },
   "dependencies": {},
