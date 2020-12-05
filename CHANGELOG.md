@@ -1,5 +1,63 @@
 # Changelog
 
+## 3.0.1
+
+- Fix null in params by @acro5piano
+- Bump deps by @acro5piano
+
+## 3.0.0
+
+⚠ Breaking: `query`, `mutation`, `subscription` now returns `CompiledResult` (not returns GraphQL string).
+
+```typescript
+interface CompiledResult<D, V> {
+  toString: () => string
+  data: D
+  variable: V
+  result: { data: D }
+}
+```
+
+**Migration Guide**
+
+2.x
+
+```typescript
+const queryObject = {
+  user: {
+    id: types.number,
+    name: types.string,
+    bankAccount: {
+      id: types.number,
+      branch: types.string,
+    },
+  },
+}
+
+const queryString = query('GetUser', queryObject)
+
+type Result = typeof queryObject
+```
+
+3.x
+
+```typescript
+const q = query('GetUser', {
+  user: {
+    id: types.number,
+    name: types.string,
+    bankAccount: {
+      id: types.number,
+      branch: types.string,
+    },
+  },
+})
+
+const queryString = q.toString()
+
+type Result = typeof q.data
+```
+
 ## 2.4.2
 
 - Bump deps by @acro5piano
