@@ -133,6 +133,27 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render null for params', () => {
+    const q = query('user', {
+      user: params(
+        { id: null },
+        {
+          id: types.number,
+        },
+      ),
+    })
+
+    const actual = gql(q.toString())
+
+    expect(actual).toEqual(gql`
+      query user {
+        user(id: null) {
+          id
+        }
+      }
+    `)
+  })
+
   it('render GraphQL with operateName', () => {
     const q = query('user', {
       user: params(

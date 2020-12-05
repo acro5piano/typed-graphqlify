@@ -21,7 +21,7 @@ export const paramsSymbol = Symbol('GraphQL Params')
  * The parameters type.
  */
 export interface Params {
-  [key: string]: string | boolean | number | Params
+  [key: string]: string | boolean | number | null | Params
 }
 
 /**
@@ -100,7 +100,7 @@ function renderName(name: string | undefined): string {
 /**
  * Renders the parameters if they were given.
  */
-function renderParams(params?: Params, brackets = true): string {
+function renderParams(params?: Params | null, brackets = true): string {
   if (!params) {
     // If no params are given, don't render anything.
     return ''
@@ -109,7 +109,9 @@ function renderParams(params?: Params, brackets = true): string {
   const builder: string[] = []
   for (const [key, value] of Object.entries(params)) {
     let params: string
-    if (typeof value === 'object') {
+    if (value === null) {
+      params = `null`
+    } else if (typeof value === 'object') {
       params = `{${renderParams(value, false)}}`
     } else {
       params = `${value}`
