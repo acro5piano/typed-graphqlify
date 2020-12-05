@@ -102,37 +102,6 @@ describe('graphqlify', () => {
     `)
   })
 
-  it('render params as GraphQL object', () => {
-    const q = query('GetUser($id: Int!)', {
-      [alias('user', `user(${params({ id: '$id' })}`)]: {
-        id: types.number,
-        name: types.string,
-        bankAccount: {
-          id: types.number,
-          branch: types.string,
-        },
-      },
-    })
-
-    q?.data?.user?.id
-
-    // @ts-expect-error
-    q.data?.['user(id: $id)']
-
-    expect(gql(q.toString())).toEqual(gql`
-      query GetUser($id: Int!) {
-        user: user(id: $id) {
-          id
-          name
-          bankAccount {
-            id
-            branch
-          }
-        }
-      }
-    `)
-  })
-
   it('render GraphQL alias', () => {
     const q = query({
       [alias('maleUser', 'user')]: params(
@@ -159,6 +128,27 @@ describe('graphqlify', () => {
             id
             branch
           }
+        }
+      }
+    `)
+  })
+
+  it('render null for params', () => {
+    const q = query('user', {
+      user: params(
+        { id: null },
+        {
+          id: types.number,
+        },
+      ),
+    })
+
+    const actual = gql(q.toString())
+
+    expect(actual).toEqual(gql`
+      query user {
+        user(id: null) {
+          id
         }
       }
     `)
