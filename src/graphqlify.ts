@@ -1,10 +1,10 @@
 import { GraphQLFragment, GraphQLType, Params, paramsSymbol, render, typeSymbol } from './render'
 
-interface QueryObject {
+export interface QueryObject {
   [x: string]: any
 }
 
-interface CompiledResult<D, V> {
+export interface CompiledResult<D, V> {
   toString: () => string
   data: D
   variable: V
