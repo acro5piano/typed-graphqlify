@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.2
+
+- Add QueryObject and CompiledResult to index.ts by @GSA05
+- Bump deps by @acro5piano
+
+
 ## 3.0.1
 
 - Fix null in params by @acro5piano
