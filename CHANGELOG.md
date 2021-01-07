@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3
+
+- Bump deps by @acro5piano
+
 ## 3.0.2
 
 - Add QueryObject and CompiledResult to index.ts by @GSA05
