@@ -231,14 +231,14 @@ mutation('updateUserMutation($input: UserInput!)', {
 Or, you can also use `params` helper which is useful for inline arguments.
 
 ```typescript
-import { mutation, params } from 'typed-graphqlify'
+import { mutation, params, rawString } from 'typed-graphqlify'
 
 mutation('updateUserMutation', {
   updateUser: params(
     {
       input: {
-        name: 'Ben',
-        slug: '/ben',
+        name: rawString('Ben'),
+        slug: rawString('/ben'),
       },
     },
     {
