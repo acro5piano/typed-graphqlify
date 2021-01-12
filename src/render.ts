@@ -21,7 +21,7 @@ export const paramsSymbol = Symbol('GraphQL Params')
  * The parameters type.
  */
 export interface Params {
-  [key: string]: string | boolean | number | null | Params
+  [key: string]: string | boolean | number | null | Params | Array<Params>
 }
 
 /**
@@ -99,8 +99,16 @@ function renderName(name: string | undefined): string {
 
 /**
  * Renders the parameters if they were given.
+ * @param params The query parameters
+ * @param brackets Whether to surround the rendered parameter with parentheses (default: true)
+ * @param array Whether to exclude the array index from the rendered parameter (default: false)
+ * @returns The rendered parameter(s)
  */
-function renderParams(params?: Params | null, brackets = true): string {
+function renderParams(
+  params?: Params | Array<Params> | null,
+  brackets: boolean = true,
+  array: boolean = false,
+): string {
   if (!params) {
     // If no params are given, don't render anything.
     return ''
@@ -111,12 +119,14 @@ function renderParams(params?: Params | null, brackets = true): string {
     let params: string
     if (value === null) {
       params = `null`
+    } else if (Array.isArray(value)) {
+      params = `[${renderParams(value as Array<Params>, false, true)}]`
     } else if (typeof value === 'object') {
-      params = `{${renderParams(value, false)}}`
+      params = `{${renderParams(value as Params, false)}}`
     } else {
       params = `${value}`
     }
-    builder.push(`${key}:${params}`)
+    builder.push(array ? `${params}` : `${key}:${params}`)
   }
 
   let built = builder.join(',')

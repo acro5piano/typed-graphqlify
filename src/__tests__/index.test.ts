@@ -45,6 +45,32 @@ describe('graphqlify', () => {
     `)
   })
 
+  it('render params with arrays', () => {
+    const q = query('Query', {
+      fooquery: params(
+        {
+          where: {
+            _or: [{ foo: { _eq: 'baz' } }, { bar: { _eq: 'qux' } }],
+          },
+        },
+        {
+          foo: types.string,
+          bar: types.string,
+        },
+      ),
+    })
+    const expected = gql`
+      query Query {
+        fooquery(where: { _or: [{ foo: { _eq: baz } }, { bar: { _eq: qux } }] }) {
+          foo
+          bar
+        }
+      }
+    `
+    const actual = gql(q.toString())
+    expect(actual).toEqual(expected)
+  })
+
   it('render params embed GraphQL', () => {
     const q = query('GetUser($id: Int!)', {
       'user(id: $id)': {
