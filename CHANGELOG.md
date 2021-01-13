@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0
+
+- Parameter Arrays #209 by @alewgbl
+
 ## 3.0.3
 
 - Bump deps by @acro5piano
