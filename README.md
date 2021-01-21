@@ -431,6 +431,30 @@ query('getUser', {
 })
 ```
 
+## Field with arguments
+
+Use `params` to define field with arguments.
+
+```graphql
+query getUser {
+  user {
+    id
+    createdAt(format: "d.m.Y")
+  }
+}
+```
+
+```typescript
+import { query, types, params, rawString } from 'typed-graphqlify'
+
+query('getUser', {
+  user: {
+    id: types.number,
+    createdAt: params({ format: rawString('d.m.Y') }, types.string),
+  },
+})
+```
+
 ## Multiple Queries
 
 Add other queries at the same level of the other query.
