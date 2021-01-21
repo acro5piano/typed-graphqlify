@@ -1015,4 +1015,35 @@ describe('graphqlify', () => {
       }
     `)
   })
+
+  it('render field with argument', () => {
+    const q = query({
+      user: {
+        id: types.string,
+        dateStart: params({ format: rawString('d.m.Y') }, types.string),
+      },
+    })
+
+    const actual = gql(q.toString())
+
+    expect(actual).toEqual(gql`
+      query {
+        user {
+          id
+          dateStart(format: "d.m.Y")
+        }
+      }
+    `)
+
+    // Check typing
+    const n: typeof q.result = {
+      data: {
+        user: {
+          id: '1',
+          dateStart: 'string',
+        },
+      },
+    }
+    n
+  })
 })
