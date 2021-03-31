@@ -1,6 +1,9 @@
 name: test
 
-on: push
+on:
+  push: {}
+  pull_request:
+    types: [created, synchronize]
 
 jobs:
   test:
