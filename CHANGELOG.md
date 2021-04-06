@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1
+
+- Keep comments for compiled code by @acro5piano
+
 ## 3.1.0
 
 - Parameter Arrays #209 by @alewgbl
