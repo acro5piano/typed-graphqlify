@@ -6,6 +6,23 @@ type ElementType<T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<inf
   ? ElementType
   : never
 
+/**
+ * Add `types.optional` or `optional` helper method to define optional field.
+ *
+ * ```typescript
+ * import { optional, query, types } from 'typed-graphqlify'
+ *
+ * query('getUser', {
+ *   user: {
+ *     id: types.number,
+ *     name: types.optional.string, // <-- user.name is `string | undefined`
+ *     bankAccount: optional({      // <-- user.bankAccount is `{ id: number } | undefined`
+ *       id: types.number,
+ *     }),
+ *   },
+ * }
+ * ```
+ */
 export function optional<T>(obj: T): T | undefined | null {
   return obj
 }

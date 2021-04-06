@@ -313,7 +313,7 @@ query getUsers {
 ```typescript
 import { alias, query, types } from 'typed-graphqlify'
 
-query('users', {
+query('getUsers', {
   [alias('users', 'users(status: "active")')]: [{
     id: types.number,
     name: types.string,
@@ -513,7 +513,7 @@ query('getMaleUser', {
 
 ## Standard fragments
 
-Use the `fragment` helper to create them, and spread the result into places the fragment is used.
+Use the `fragment` helper to create GraphQL Fragment, and spread the result into places the fragment is used.
 
 ```graphql
 query {
