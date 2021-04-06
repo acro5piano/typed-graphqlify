@@ -2,7 +2,7 @@
 
 ## 3.1.1
 
-- Keep comments for compiled code by @acro5piano
+- Keep comments in compiled code by @acro5piano
 
 ## 3.1.0
 
