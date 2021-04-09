@@ -1,9 +1,6 @@
 name: test
 
-on:
-  push: {}
-  pull_request:
-    types: [created, synchronize]
+on: [push, pull_request]
 
 jobs:
   test:
