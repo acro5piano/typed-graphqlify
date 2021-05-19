@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.2
+
+- Update deps by @acro5piano
+
 ## 3.1.1
 
 - Keep comments in compiled code by @acro5piano
@@ -16,7 +20,6 @@
 
 - Add QueryObject and CompiledResult to index.ts by @GSA05
 - Bump deps by @acro5piano
-
 
 ## 3.0.1
 
