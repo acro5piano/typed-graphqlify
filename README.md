@@ -3,6 +3,7 @@
 I'm happy to assist you via Remotehour. Feel free to call me if I'm online → [https://remotehour.com/kay/quick](https://remotehour.com/kay/quick?utm_source=github&utm_medium=social&utm_campaign=typed-graphqlify)
 
 ![release](https://github.com/acro5piano/typed-graphqlify/workflows/release/badge.svg)
+![test](https://github.com/acro5piano/typed-graphqlify/workflows/test/badge.svg)
 [![npm version](https://badge.fury.io/js/typed-graphqlify.svg)](https://badge.fury.io/js/typed-graphqlify)
 [![codecov](https://codecov.io/gh/acro5piano/typed-graphqlify/branch/master/graph/badge.svg)](https://codecov.io/gh/acro5piano/typed-graphqlify)
 
