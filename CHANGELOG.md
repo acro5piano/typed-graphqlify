@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.4
+
+- Update deps by @acro5piano
+
 ## 3.1.2
 
 - Update deps by @acro5piano
