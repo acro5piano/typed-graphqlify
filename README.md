@@ -664,7 +664,7 @@ query({
 })
 ```
 
-See more examples at [`src/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/index.test.ts)
+See more examples at [`src/__tests__/index.test.ts`](https://github.com/acro5piano/typed-graphqlify/blob/master/src/__tests__/index.test.ts)
 
 # Usage with React Native
 
