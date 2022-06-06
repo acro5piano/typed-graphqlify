@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.1.5
+
+### New Features
+
+- Update deps by @acro5piano
+- Fix index.test.ts link in README.md by @vkrol in https://github.com/acro5piano/typed-graphqlify/pull/267
+- Export all files by @acro5piano
+- Replace husky with simple-git-hooks by @acro5piano in https://github.com/acro5piano/typed-graphqlify/pull/334
+
+### New Contributors
+
+- @vkrol made their first contribution in https://github.com/acro5piano/typed-graphqlify/pull/267
+
+**Full Changelog**: https://github.com/acro5piano/typed-graphqlify/compare/v3.1.4...v3.1.5
+
 ## 3.1.4
 
 - Update deps by @acro5piano
