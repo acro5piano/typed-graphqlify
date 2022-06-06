@@ -34,6 +34,12 @@
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "tslint --fix"
+    ]
+  },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "@types/node": "^17.0.40",
