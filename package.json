@@ -43,7 +43,7 @@
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.32.0",
     "ts-jest": "^23.10.5",
     "ts-node": "^10.0.0",
     "tsd": "^0.17.0",
