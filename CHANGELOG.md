@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.6
+
+- Update deps by @acro5piano
+- Remove typescript as a peer dependency by @kevinsimper in https://github.com/acro5piano/typed-graphqlify/pull/344
+
 ## 3.1.5
 
 ### New Features
