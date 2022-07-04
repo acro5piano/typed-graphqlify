@@ -27,10 +27,6 @@
     "test:coverage": "jest --coverage",
     "prepublish": "npm run dist"
   },
-  "dependencies": {},
-  "peerDependencies": {
-    "typescript": "^4.0.2"
-  },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
