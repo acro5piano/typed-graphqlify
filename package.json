@@ -47,7 +47,7 @@
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-typescript2": "^0.32.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "simple-git-hooks": "^2.8.0",
     "tsd": "^0.22.0",
     "ts-jest": "^23.10.5",
