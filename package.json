@@ -46,7 +46,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "rollup": "^2.23.0",
+    "rollup": "^3.9.0",
     "rollup-plugin-typescript2": "^0.32.0",
     "simple-git-hooks": "^2.8.0",
     "tsd": "^0.22.0",
